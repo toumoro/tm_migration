@@ -1,0 +1,20 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Toumoro\TmMigration\:
+    resource: '../Classes/*'
+
+  Toumoro\TmMigration\Command\FixDatabaseErrorsCommand:
+    tags:
+      - name: console.command
+        command: 'upgrade:fixdatabaseerrors'
+        description: 'Fix database updateschema errors.'
+
+  Toumoro\TmMigration\Command\ExportCtypeListTypeCommand:
+    tags:
+      - name: console.command
+        command: 'export:ctypeslisttypes'
+        description: 'Export CTypes and List Types to JSON or CSV.'

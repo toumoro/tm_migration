@@ -1,0 +1,30 @@
+{
+    "name": "toumoro/tm-migration",
+    "type": "typo3-cms-extension",
+    "description": "TYPO3 extension that brings together the tools used for a major TYPO3 migration.",
+    "authors": [],
+    "require": {
+        "a9f/typo3-fractor": "*",
+        "ssch/typo3-rector": "*",
+        "wapplersystems/core-upgrader": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Toumoro\\TmMigration\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Toumoro\\TmMigration\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "tm_migration": "self.version",
+        "typo3-ter/tm-migration": "self.version"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "tm_migration"
+        }
+    }    
+}

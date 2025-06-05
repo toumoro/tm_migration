@@ -1,0 +1,2 @@
+# cat=basic/enable/050; type=string; label=LLL:EXT:tm_migration/Resources/Private/Language/locallang_be.xlf:cTypeToListTypeMappingArray
+cTypeToListTypeMappingArray = pi_plugin1:new_content_element1,pi_plugin2:new_content_element2
