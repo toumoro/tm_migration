@@ -8,7 +8,9 @@ The extension relies on <code>typo3-fractor, typo3-rector, and core-upgrader</co
 ### CLI Commands :
 An export CLI command that allows developers to export CTypes and List Types to JSON or CSV file format :
 
-<code>vendor/bin/typo3 export:types -f [FILE_TYPE] -n [FILE_NAME]</code>
+<code>vendor/bin/typo3 export:types -t [FILE_TYPE] -m [FILE_NAME]</code>
+
+e.x: <code>vendor/bin/typo3 export:types -t csv -m mapping.csv</code>
 
 <hr />
 

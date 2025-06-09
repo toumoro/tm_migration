@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Toumoro\TmMigration\Command;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -24,7 +25,7 @@ final class ExportCtypeListTypeCommand extends Command
     private SymfonyStyle $io;
 
     protected const TT_CONTENT_TABLE = 'tt_content';
-    protected const EXCLUDED_TYPES = [ 'div', 'header', 'html', 'image', 'text', 'textmedia', 'textpic', 'uploads'];
+    protected const EXCLUDED_TYPES = [ 'div', 'header', 'html', 'image', 'text', 'textmedia', 'textpic', 'uploads' ];
     protected const FIELDS = [
         'CType',
         'list_type',
@@ -37,13 +38,14 @@ final class ExportCtypeListTypeCommand extends Command
         private readonly ConnectionPool $connectionPool,
         private readonly LoggerInterface $logger
     ) {
+        parent::__construct();
     }
 
     protected function configure(): void
     {
         $this
             ->setDescription('Export CTypes and List Types to JSON or CSV.')
-            ->addOption('fileName', 'n', InputOption::VALUE_OPTIONAL, 'File Name', $this->getFileName())
+            ->addOption('fileName', 'm', InputOption::VALUE_OPTIONAL, 'File Name', self::FILE_NAME)
             ->addOption('fileType', 't', InputOption::VALUE_OPTIONAL, 'File Type', '');
     }
 
@@ -58,7 +60,7 @@ final class ExportCtypeListTypeCommand extends Command
             $this->exportJson($listTypeAndCTypeArray);
         } else {
             $contents = $this->export($listTypeAndCTypeArray, self::FIELDS);
-            $fileName = $this->getFileName();
+            $fileName = $this->getFileName($input);
 
             if (file_exists($fileName)) {
                 file_put_contents($fileName, $contents);
@@ -125,6 +127,12 @@ final class ExportCtypeListTypeCommand extends Command
             ->selectLiteral('GROUP_CONCAT(DISTINCT pid ORDER BY pid) AS pids')
             ->addSelect('CType', 'list_type')
             ->from(self::TT_CONTENT_TABLE)
+            ->where(
+                $queryBuilder->expr()->notIn(
+                    'CType',
+                    $queryBuilder->createNamedParameter(self::EXCLUDED_TYPES, ArrayParameterType::STRING)
+                ),
+            )
             ->groupBy('CType')
             ->addGroupBy('list_type')
             ->executeQuery();
@@ -140,9 +148,9 @@ final class ExportCtypeListTypeCommand extends Command
         return $rows;
     }
 
-    private function getFileName(): string
+    private function getFileName($input): string
     {
-        return self::FILE_NAME;
+        return $input->getOption('fileName') ?? self::FILE_NAME;
     }
 
     private function logError(string $message): void
