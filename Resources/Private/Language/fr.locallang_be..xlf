@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2025-06-05T18:33:18Z" product-name="tm_migration">
+		<header/>
+		<body>
+			<trans-unit id="cTypeToListTypeMappingArray" xml:space="preserve" approved="yes">
+				<target state="translated">Configuration de mappage du type de liste au CType</target>
+			</trans-unit>
+			<trans-unit id="disableTrucateLogUpgradeWizard" xml:space="preserve" approved="yes">
+				<target state="translated">Désactiver l’upgrade wizard du nettoyage de logs</target>
+			</trans-unit>
+			<trans-unit id="numberOfDays" xml:space="preserve" approved="yes">
+				<target state="translated">Nombres de jours</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

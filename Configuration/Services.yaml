@@ -16,5 +16,5 @@ services:
   Toumoro\TmMigration\Command\ExportCtypeListTypeCommand:
     tags:
       - name: console.command
-        command: 'export:ctypeslisttypes'
+        command: 'export:types'
         description: 'Export CTypes and List Types to JSON or CSV.'

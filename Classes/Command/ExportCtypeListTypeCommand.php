@@ -8,15 +8,15 @@ use Doctrine\DBAL\Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\CsvUtility;
 
 #[AsCommand(
-    name: 'export:ctypeslisttypes',
+    name: 'export:types',
     description: 'Export CTypes and List Types to JSON or CSV.',
 )]
 final class ExportCtypeListTypeCommand extends Command
@@ -24,23 +24,27 @@ final class ExportCtypeListTypeCommand extends Command
     private SymfonyStyle $io;
 
     protected const TT_CONTENT_TABLE = 'tt_content';
-    protected const FIELDS = 'CType,list_type';
+    protected const EXCLUDED_TYPES = [ 'div', 'header', 'html', 'image', 'text', 'textmedia', 'textpic', 'uploads'];
+    protected const FIELDS = [
+        'CType',
+        'list_type',
+        'pids'
+    ];
     protected const FILE_NAME = 'export.csv';
     protected const FILE_TYPE_JSON = 'json';
-    protected const FILE_TYPE_CSV = 'csv';
 
     public function __construct(
         private readonly ConnectionPool $connectionPool,
-        private readonly LoggerInterface $logger,
-        ?string $name = null
+        private readonly LoggerInterface $logger
     ) {
-        parent::__construct($name);
     }
 
     protected function configure(): void
     {
-        $this->setDescription('Export CTypes and List Types to JSON or CSV.');
-        $this->addArgument('file', InputArgument::REQUIRED, 'CSV or JSON');
+        $this
+            ->setDescription('Export CTypes and List Types to JSON or CSV.')
+            ->addOption('fileName', 'n', InputOption::VALUE_OPTIONAL, 'File Name', $this->getFileName())
+            ->addOption('fileType', 't', InputOption::VALUE_OPTIONAL, 'File Type', '');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -48,21 +52,11 @@ final class ExportCtypeListTypeCommand extends Command
         $this->io = new SymfonyStyle($input, $output);
 
         $listTypeAndCTypeArray = $this->getListTypeAndCTypeArray();
-        $file = $input->getArgument('file');
+        $fileType = $input->getOption('fileType');
 
-        if(strtolower($file) == self::FILE_TYPE_JSON) {
-            foreach ($listTypeAndCTypeArray as $row) {
-                 if($row['CType'] == 'list' || $row['list_type']) {
-                    $tmp[] = $row['list_type'] . ':' . 'new_content_element1';
-                }
-            }
-
-            $this->io->info('Here is the configuration for List Type to CType Mapping.');
-            $this->io->text(implode(',', $tmp));
-            echo(PHP_EOL);
-        }
-
-        if(strtolower($file) == self::FILE_TYPE_CSV) {
+        if($fileType && strtolower($fileType) == self::FILE_TYPE_JSON) {
+            $this->exportJson($listTypeAndCTypeArray);
+        } else {
             $contents = $this->export($listTypeAndCTypeArray, self::FIELDS);
             $fileName = $this->getFileName();
 
@@ -89,25 +83,34 @@ final class ExportCtypeListTypeCommand extends Command
         return $content;
     }
 
+    private function exportJson($list): void
+    {
+        foreach ($list as $row) {
+                if($row['CType'] == 'list' || $row['list_type']) {
+                $tmp[] = $row['list_type'] . ':' . 'new_content_element1';
+            }
+        }
+
+        $this->io->info('Here is the configuration for List Type to CType Mapping.');
+        $this->io->text(implode(',', $tmp));
+        echo(PHP_EOL);
+    }
+
     private function renderHeader($fields): array
     {
-        $fields = explode(',', $fields);
-        array_push($fields, 'pids');
-
-        return $fields;
+        return array_values($fields);
     }
 
     private function renderContent($row, $fields): array
     {
         $data = [];
-
-        $fields = explode(',', $fields);
         
         foreach ($fields as $field) {
+            if($field == 'pids') {
+                $data[] = $row['pids'];
+            }
             $data[] = $row[$field];
         }
-
-        $data[] = $row['pids'];
 
         return $data;
     }

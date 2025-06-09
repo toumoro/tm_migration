@@ -4,7 +4,13 @@
 		<header/>
 		<body>
 			<trans-unit id="cTypeToListTypeMappingArray" xml:space="preserve">
-				<source>List Type to CType Mapping Array</source>
+				<source>List Type to CType Mapping Configuration</source>
+			</trans-unit>
+			<trans-unit id="disableTrucateLogUpgradeWizard" xml:space="preserve">
+				<source>Disable Log Cleaner Upgrade Wizard</source>
+			</trans-unit>
+			<trans-unit id="numberOfDays" xml:space="preserve">
+				<source>Number Of Days</source>
 			</trans-unit>
 		</body>
 	</file>
