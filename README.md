@@ -10,7 +10,7 @@ An export CLI command that allows developers to export CTypes and List Types to 
 
 <code>vendor/bin/typo3 export:types -t [FILE_TYPE] -m [FILE_NAME]</code>
 
-e.x: <code>vendor/bin/typo3 export:types -t csv -m mapping.csv</code>
+e.x: <code>vendor/bin/typo3 export:types -t csv -m types.csv</code>
 
 <hr />
 
