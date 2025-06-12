@@ -110,8 +110,9 @@ final class ExportCtypeListTypeCommand extends Command
         foreach ($fields as $field) {
             if($field == 'pids') {
                 $data[] = $row['pids'];
+            } else {
+                $data[] = $row[$field];
             }
-            $data[] = $row[$field];
         }
 
         return $data;
