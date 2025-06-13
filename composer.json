@@ -19,7 +19,7 @@
         }
     },
     "replace": {
-        "toumoro/tm-migration": "self.version",
+        "toumoro/tm-migration": "self.version"
     },
     "extra": {
         "typo3/cms": {
