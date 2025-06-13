@@ -1,32 +1,112 @@
+
 # tm_migration
-TYPO3 extension that brings together the tools used for a major TYPO3 migration.
 
-## Features
-### Dependencies :
-The extension relies on <code>typo3-fractor, typo3-rector, and core-upgrader</code> as base dependencies.
+**TYPO3 extension that brings together essential tools for major TYPO3 migrations.**
 
-### CLI Commands :
-An export CLI command that allows developers to export CTypes and List Types to JSON or CSV file format :
+---
 
-<code>vendor/bin/typo3 export:types -t [FILE_TYPE] -m [FILE_NAME]</code>
+## 🚀 Features
 
-e.x: <code>vendor/bin/typo3 export:types -t csv -m types.csv</code>
+### ✅ Dependencies
 
-<hr />
+This extension relies on:
 
-A CLI command that fixes the duplicate entries in _mm relation tables, e.g: <code>sys_category_record_mm</code> :
+- `typo3-fractor`
+- `typo3-rector`
+- `core-upgrader`
 
-<code>vendor/bin/typo3 upgrade:fixdatabaseerrors</code>
+---
 
-### Upgrade Wizards :
-An upgrade wizard facilitates the migration of <b>list_type</b> plugins to <b>CType</b> content elements using a configurable array mapping.
+### 🛠 CLI Commands
 
-The mapping configuration can be customized in the <b>tm_migration</b> extension settings.
+#### Export CTypes and List Types
 
-<hr />
+Export `CType` and `list_type` values to JSON or CSV:
 
-An upgrade wizard that truncates or deletes entries from Log table if number of days is set in <b>tm_migration</b> extension settings.
+```bash
+vendor/bin/typo3 export:types -t [FILE_TYPE] -m [FILE_NAME]
+```
 
-<hr />
+Example:
 
-An upgrade wizard that migrates <b>grid elements</b> to <b>container</b>
+```bash
+vendor/bin/typo3 export:types -t csv -m types.csv
+```
+
+---
+
+#### Fix duplicate MM relations
+
+Clean up duplicate entries in MM relation tables (e.g. `sys_category_record_mm`):
+
+```bash
+vendor/bin/typo3 upgrade:fixdatabaseerrors
+```
+
+---
+
+### 🧩 Upgrade Wizards
+
+- **Migrate `list_type` to `CType`**  
+  Upgrade wizard to migrate `list_type` plugins to `CType` content elements using a configurable mapping array.  
+  The mapping can be customized via the `tm_migration` extension settings.
+
+- **Clean log table**  
+  Upgrade wizard to delete or truncate entries from `sys_log` based on the retention period set in the extension settings.
+
+- **Migrate grid elements to container**  
+  Upgrade wizard to migrate `grid elements` to `container` content elements.
+
+---
+
+### ⚙️ Rector & Fractor Configurations
+
+Sample Rector and Fractor configurations are provided in:
+
+```
+packages/tm_migration/Resources/Private/Config
+```
+
+To copy them into your project:
+
+```bash
+cp packages/tm_migration/Resources/Private/Config/* YOUR_TARGET_DIRECTORY/
+```
+
+---
+
+### 📝 Dry Runs (Simulations)
+
+Before applying automatic fixes, you can run Rector and Fractor in dry-run mode to preview changes:
+
+Run Rector dry-run:
+
+```bash
+vendor/bin/rector process --debug --dry-run 2>&1 | tee rector-dryrun.txt
+```
+
+Run Fractor dry-run:
+
+```bash
+vendor/bin/fractor process --dry-run 2>&1 | tee fractor-dryrun.txt
+```
+
+---
+
+### ⚡ Apply automatic fixes
+
+When ready, apply the code modifications:
+
+```bash
+vendor/bin/rector process --debug
+vendor/bin/fractor process
+```
+
+> ℹ️ **Tip:**  
+> Using `--debug` with Rector avoids issues caused by parallel processing.
+
+---
+
+## 💡 License
+
+MIT License — see the LICENSE file for details.

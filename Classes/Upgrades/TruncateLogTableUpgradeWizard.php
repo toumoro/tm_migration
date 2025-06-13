@@ -14,6 +14,9 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 use Doctrine\DBAL\Exception as DBALException;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 
+/**
+ * Class TruncateLogTableUpgradeWizard
+ */
 #[UpgradeWizard('tmMigration_trucateLogTableUpgradeWizard')]
 final class TruncateLogTableUpgradeWizard implements UpgradeWizardInterface, LoggerAwareInterface
 {

@@ -16,6 +16,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\CsvUtility;
 
+/**
+ * Class ExportCtypeListTypeCommand
+ */
 #[AsCommand(
     name: 'export:types',
     description: 'Export CTypes and List Types to JSON or CSV.',

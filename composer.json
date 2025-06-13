@@ -2,8 +2,26 @@
     "name": "toumoro/tm-migration",
     "type": "typo3-cms-extension",
     "description": "TYPO3 extension that brings together the tools used for a major TYPO3 migration.",
-    "authors": [],
+    "keywords": [
+        "TYPO3",
+        "Toumoro",
+        "Migration"
+    ],
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/toumoro/tm_migration",
+    "authors": [
+        {
+            "name": "Mehdi Guermazi",
+            "email": "mehdi.guermazi@toumoro.com"
+        },
+        {
+            "name": "Haythem Daoud",
+            "email": "haythem.daoud@toumoro.com"
+        }
+    ],
+    "version": "13.4.0",
     "require": {
+        "php": ">=8.1",
         "a9f/typo3-fractor": "*",
         "ssch/typo3-rector": "*",
         "wapplersystems/core-upgrader": "*"

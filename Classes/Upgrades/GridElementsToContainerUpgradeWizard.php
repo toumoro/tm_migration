@@ -11,6 +11,9 @@ use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
+/**
+ * Class GridElementsToContainerUpgradeWizard
+ */
 #[UpgradeWizard('tmMigration_gridelementsToContainerUpgradeWizard')]
 class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
 {

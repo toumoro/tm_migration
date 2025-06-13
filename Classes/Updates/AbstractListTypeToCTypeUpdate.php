@@ -27,7 +27,9 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 /**
  * This class can be extended by 3rd party extensions to easily add a custom
  * `list_type` to `CType` update for deprecated "plugin" content element usages.
- *
+ * 
+ * Class AbstractListTypeToCTypeUpdate
+ * 
  * @since 13.4
  */
 abstract class AbstractListTypeToCTypeUpdate implements UpgradeWizardInterface

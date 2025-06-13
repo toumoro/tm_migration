@@ -9,6 +9,9 @@ use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 
+/**
+ * Class CTypeToListTypeUpgradeWizard
+ */
 #[UpgradeWizard('tmMigration_cTypeToListTypeUpgradeWizard')]
 final class CTypeToListTypeUpgradeWizard extends AbstractListTypeToCTypeUpdate
 {
