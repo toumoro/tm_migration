@@ -104,9 +104,3 @@ vendor/bin/fractor process
 
 > ℹ️ **Tip:**  
 > Using `--debug` with Rector avoids issues caused by parallel processing.
-
----
-
-## 💡 License
-
-MIT License — see the LICENSE file for details.
