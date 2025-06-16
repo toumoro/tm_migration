@@ -58,7 +58,8 @@ vendor/bin/typo3 upgrade:fixdatabaseerrors
   Upgrade wizard to migrate `grid elements` to `container` content elements.
 
 - **SQL Migration Upgrade Wizard**  
-  Upgrade wizard that allows execution of custom SQL scripts during the migration process, useful for applying additional database adjustments.
+  Upgrade wizard that allows execution of custom SQL scripts during the migration process, useful for applying additional database adjustments.  
+  ⚠️ **Notice:** To use this wizard, you must create a `migration.sql` file at the root of your TYPO3 project. This file should contain the SQL statements you want to apply during the migration.
 
 ---
 
