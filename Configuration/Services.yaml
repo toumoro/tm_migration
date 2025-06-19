@@ -24,3 +24,9 @@ services:
       - name: console.command
         command: 'upgrade:importsql'
         description: 'Run custom SQL scripts.'
+
+  Toumoro\TmMigration\Command\ClearSysLogCommand:
+    tags:
+      - name: console.command
+        command: 'upgrade:clearsyslog'
+        description: 'This command execute an SQL script that clears the sys_log database table. -d days -l limit.'
