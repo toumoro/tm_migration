@@ -112,3 +112,10 @@ vendor/bin/fractor process
 
 > ℹ️ **Tip:**  
 > Using `--debug` with Rector avoids issues caused by parallel processing.
+
+
+### Update composer dependencies to the latest version (to be tested and reviewed)
+```bash
+composer require $(composer show -s --format=json | jq '.requires | keys | map(.+" ") | add' -r)
+composer require --dev $(composer show -s --format=json | jq '.devRequires | keys | map(.+" ") | add' -r)
+```
