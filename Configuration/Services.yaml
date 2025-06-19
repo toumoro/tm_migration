@@ -18,3 +18,9 @@ services:
       - name: console.command
         command: 'export:types'
         description: 'Export CTypes and List Types to JSON or CSV.'
+
+  Toumoro\TmMigration\Command\RunSqlScriptCommand:
+    tags:
+      - name: console.command
+        command: 'upgrade:importsql'
+        description: 'Run custom SQL scripts.'

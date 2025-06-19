@@ -19,7 +19,7 @@ This extension relies on:
 
 ### 🛠 CLI Commands
 
-#### Export CTypes and List Types
+#### Export CTypes and List Types Command
 
 Export `CType` and `list_type` values to JSON or CSV:
 
@@ -35,7 +35,7 @@ vendor/bin/typo3 export:types -t csv -m types.csv
 
 ---
 
-#### Fix duplicate MM relations
+#### Fix duplicate MM relations Command
 
 Clean up duplicate entries in MM relation tables (e.g. `sys_category_record_mm`):
 
@@ -44,6 +44,14 @@ vendor/bin/typo3 upgrade:fixdatabaseerrors
 ```
 
 ---
+
+#### SQL Migration Command
+
+Command that allows execution of custom SQL scripts during the migration process, useful for applying additional database adjustments.  
+
+```bash
+vendor/bin/typo3 upgrade:importsql -f [FILE_NAME]
+```
 
 ### 🧩 Upgrade Wizards
 
@@ -56,10 +64,6 @@ vendor/bin/typo3 upgrade:fixdatabaseerrors
 
 - **Migrate grid elements to container**  
   Upgrade wizard to migrate `grid elements` to `container` content elements.
-
-- **SQL Migration Upgrade Wizard**  
-  Upgrade wizard that allows execution of custom SQL scripts during the migration process, useful for applying additional database adjustments.  
-  ⚠️ **Notice:** To use this wizard, you must create a `migration.sql` file at the root of your TYPO3 project. This file should contain the SQL statements you want to apply during the migration.
 
 ---
 
