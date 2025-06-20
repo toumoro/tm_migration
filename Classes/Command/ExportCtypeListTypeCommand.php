@@ -20,7 +20,7 @@ use TYPO3\CMS\Core\Utility\CsvUtility;
  * Class ExportCtypeListTypeCommand
  */
 #[AsCommand(
-    name: 'export:types',
+    name: 'tmexport:types',
     description: 'Export CTypes and List Types to JSON or CSV.',
 )]
 final class ExportCtypeListTypeCommand extends Command

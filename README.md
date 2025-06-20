@@ -24,13 +24,19 @@ This extension relies on:
 Export `CType` and `list_type` values to JSON or CSV:
 
 ```bash
-vendor/bin/typo3 export:types -t [FILE_TYPE] -m [FILE_NAME]
+vendor/bin/typo3 tmexport:types -t [FILE_TYPE] -m [FILE_NAME]
 ```
 
-Example:
+Example for CSV:
 
 ```bash
-vendor/bin/typo3 export:types -t csv -m types.csv
+vendor/bin/typo3 tmexport:types -t csv -m types.csv
+```
+
+Example for JSON:
+
+```bash
+vendor/bin/typo3 tmexport:types -t json
 ```
 
 ---
@@ -40,7 +46,7 @@ vendor/bin/typo3 export:types -t csv -m types.csv
 Clean up duplicate entries in MM relation tables (e.g. `sys_category_record_mm`):
 
 ```bash
-vendor/bin/typo3 upgrade:fixdatabaseerrors
+vendor/bin/typo3 tmupgrade:fixdatabaseerrors
 ```
 
 ---
@@ -50,7 +56,7 @@ vendor/bin/typo3 upgrade:fixdatabaseerrors
 Command that allows execution of custom SQL scripts during the migration process, useful for applying additional database adjustments.  
 
 ```bash
-vendor/bin/typo3 upgrade:importsql -f [FILE_NAME]
+vendor/bin/typo3 tmupgrade:importsql -f [FILE_NAME]
 ```
 
 ---
@@ -60,7 +66,19 @@ vendor/bin/typo3 upgrade:importsql -f [FILE_NAME]
 Command that clears the sys_log entries not related to sys_history and older than -d Days with limit -l Limit.  
 
 ```bash
-vendor/bin/typo3 upgrade:clearsyslog -d [DAYS] -l [LIMIT]
+vendor/bin/typo3 tmupgrade:clearsyslog -d [DAYS] -l [LIMIT]
+```
+
+---
+
+#### Upgrade Wizards Execution Command
+
+Two options are available in the extension settings :
+- Specify the **version** from which the upgrade wizards should start executing.
+- Exclude specific **upgrade wizard identifiers** from being executed.
+
+```bash
+vendor/bin/typo3 tmupgrade:run
 ```
 
 ---

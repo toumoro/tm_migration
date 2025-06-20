@@ -17,7 +17,7 @@ use Toumoro\TmMigration\Service\SqlMigrationService;
  * Class ClearSysLogCommand
  */
 #[AsCommand(
-    name: 'upgrade:clearsyslog',
+    name: 'tmupgrade:clearsyslog',
     description: 'Clear table sys_log',
 )]
 final class ClearSysLogCommand extends Command

@@ -18,7 +18,7 @@ use Toumoro\TmMigration\Service\SqlMigrationService;
  * Class RunSqlScriptCommand
  */
 #[AsCommand(
-    name: 'upgrade:importsql',
+    name: 'tmupgrade:importsql',
     description: 'Run custom SQL scripts',
 )]
 final class RunSqlScriptCommand extends Command
