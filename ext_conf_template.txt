@@ -4,3 +4,7 @@ cTypeToListTypeMappingArray = pi_plugin1:new_content_element1,pi_plugin2:new_con
 disableTrucateLogUpgradeWizard = 1
 # cat=wizards/enable/030; type=string; label=LLL:EXT:tm_migration/Resources/Private/Language/locallang_be.xlf:numberOfDays
 numberOfDays = 180
+# cat=wizards/enable/040; type=string; label=LLL:EXT:tm_migration/Resources/Private/Language/locallang_be.xlf:upgradeWizardsFromVersion
+upgradeWizards.fromVersion = 8.7
+# cat=wizards/enable/050; type=string; label=LLL:EXT:tm_migration/Resources/Private/Language/locallang_be.xlf:upgradeWizardsToExclude
+upgradeWizards.exlcuded =

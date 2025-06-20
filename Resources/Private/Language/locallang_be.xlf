@@ -12,6 +12,12 @@
 			<trans-unit id="numberOfDays" xml:space="preserve">
 				<source>Number Of Days</source>
 			</trans-unit>
+			<trans-unit id="upgradeWizardsToExclude" xml:space="preserve">
+				<source>List of upgrade wizards excluded from execution</source>
+			</trans-unit>
+			<trans-unit id="upgradeWizardsFromVersion" xml:space="preserve">
+				<source>Version from which upgrade wizards are executed</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

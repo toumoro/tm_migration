@@ -37,4 +37,22 @@ abstract class ConfigurationUtility
 
         return $configuration['numberOfDays'] ?? '';
     }
+
+    public static function getUpgradeWizardToExclude(): array
+    {
+        $configuration = self::getExtensionConfiguration();
+
+        if(!empty($configuration['upgradeWizards']['exlcuded'])) {
+            return explode(',', $configuration['upgradeWizards']['exlcuded']); 
+        }
+
+        return [];
+    }
+
+    public static function getUpgradeWizardFromVersion(): string
+    {
+        $configuration = self::getExtensionConfiguration();
+
+        return $configuration['upgradeWizards']['fromVersion'] ?? '';
+    }
 }

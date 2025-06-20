@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
  * Class FixDatabaseErrorsCommand
  */
 #[AsCommand(
-    name: 'upgrade:fixdatabaseerrors',
+    name: 'tmupgrade:fixdatabaseerrors',
     description: 'Fix database updateschema errors',
 )]
 final class FixDatabaseErrorsCommand extends Command

@@ -12,6 +12,12 @@
 			<trans-unit id="numberOfDays" xml:space="preserve" approved="yes">
 				<target state="translated">Nombres de jours</target>
 			</trans-unit>
+			<trans-unit id="upgradeWizardsToExclude" xml:space="preserve" approved="yes">
+				<target state="translated">Liste des upgrade wizards exclus de l'exécution</target>
+			</trans-unit>
+			<trans-unit id="upgradeWizardsFromVersion" xml:space="preserve" approved="yes">
+				<target state="translated">Version à partir de laquelle les upgrade wizards sont exécutées</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

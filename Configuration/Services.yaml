@@ -10,23 +10,29 @@ services:
   Toumoro\TmMigration\Command\FixDatabaseErrorsCommand:
     tags:
       - name: console.command
-        command: 'upgrade:fixdatabaseerrors'
+        command: 'tmupgrade:fixdatabaseerrors'
         description: 'Fix database updateschema errors.'
 
   Toumoro\TmMigration\Command\ExportCtypeListTypeCommand:
     tags:
       - name: console.command
-        command: 'export:types'
+        command: 'tmexport:types'
         description: 'Export CTypes and List Types to JSON or CSV.'
 
   Toumoro\TmMigration\Command\RunSqlScriptCommand:
     tags:
       - name: console.command
-        command: 'upgrade:importsql'
+        command: 'tmupgrade:importsql'
         description: 'Run custom SQL scripts.'
 
   Toumoro\TmMigration\Command\ClearSysLogCommand:
     tags:
       - name: console.command
-        command: 'upgrade:clearsyslog'
+        command: 'tmupgrade:clearsyslog'
         description: 'This command execute an SQL script that clears the sys_log database table. -d days -l limit.'
+
+  Toumoro\TmMigration\Command\UpgradeWizardRunCommand:
+    tags:
+      - name: console.command
+        command: 'tmupgrade:run'
+        description: 'This command runs upgrade wizards.'
