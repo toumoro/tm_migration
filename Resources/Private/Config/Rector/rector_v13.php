@@ -41,8 +41,6 @@ return RectorConfig::configure()
         __DIR__ . '/**/Configuration/ExtensionBuilder/*',
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
-        ],
-        __DIR__ .'/packages/direct_mail',
-        __DIR__ .'/packages/tm_portevoix/Classes/Xclass/DirectMail/Repository/FeUsersRepository.php'
+        ]
     ])
 ;
