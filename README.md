@@ -53,6 +53,18 @@ Command that allows execution of custom SQL scripts during the migration process
 vendor/bin/typo3 upgrade:importsql -f [FILE_NAME]
 ```
 
+---
+
+#### Clear sys_log Command
+
+Command that clears the sys_log entries not related to sys_history and older than -d Days with limit -l Limit.  
+
+```bash
+vendor/bin/typo3 upgrade:clearsyslog -d [DAYS] -l [LIMIT]
+```
+
+---
+
 ### 🧩 Upgrade Wizards
 
 - **Migrate `list_type` to `CType`**  
