@@ -16,6 +16,9 @@ return FractorConfiguration::configure()
     ->withSkip([
         // @see https://github.com/sabbelasichon/typo3-rector/issues/2536
         __DIR__ . '/**/Configuration/ExtensionBuilder/*',
+        __DIR__ . '/**/Documentation/Settings.yml',
+        __DIR__ . '/**/Documentation.tmpl/Settings.yml',
+        __DIR__ . '/**/Documentation.tmpl/**/Settings.yml',
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
         ],
