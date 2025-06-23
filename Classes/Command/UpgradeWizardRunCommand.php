@@ -31,6 +31,7 @@ use TYPO3\CMS\Install\Updates\RepeatableInterface;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 use Toumoro\TmMigration\Utility\ConfigurationUtility;
 use Toumoro\TmMigration\Utility\UpgardeWizardsMappingUtility;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 /**
  * Upgrade wizard command for running wizards
@@ -226,6 +227,51 @@ final class UpgradeWizardRunCommand extends Command
         return $result;
     }
 
+    protected function runSingleWizard(
+        UpgradeWizardInterface $instance
+    ): int {
+        $this->output->title('Running Wizard "' . $instance->getTitle() . '"');
+        if ($instance instanceof ConfirmableInterface) {
+            $confirmation = $instance->getConfirmation();
+            $defaultString = $confirmation->getDefaultValue() ? 'Y/n' : 'y/N';
+            $question = new ConfirmationQuestion(
+                sprintf(
+                    '<info>%s</info>' . LF . '%s' . LF . '%s %s (%s)',
+                    $confirmation->getTitle(),
+                    $confirmation->getMessage(),
+                    $confirmation->getConfirm(),
+                    $confirmation->getDeny(),
+                    $defaultString
+                ),
+                $confirmation->getDefaultValue()
+            );
+            /** @var QuestionHelper $helper */
+            $helper = $this->getHelper('question');
+            if (!$helper->ask($this->input, $this->output, $question)) {
+                if ($confirmation->isRequired()) {
+                    $this->output->error('You have to acknowledge this wizard to continue');
+                    return Command::FAILURE;
+                }
+                if ($instance instanceof RepeatableInterface) {
+                    $this->output->note('No changes applied.');
+                } else {
+                    $this->upgradeWizardsService->markWizardAsDone($instance);
+                    $this->output->note('No changes applied, marking wizard as done.');
+                }
+                return Command::SUCCESS;
+            }
+        }
+        if ($instance->executeUpdate()) {
+            $this->output->success('Successfully ran wizard ' . $instance->getTitle());
+            if (!$instance instanceof RepeatableInterface) {
+                $this->upgradeWizardsService->markWizardAsDone($instance);
+            }
+            return Command::SUCCESS;
+        }
+        $this->output->error('<error>Something went wrong while running ' . $instance->getTitle() . '</error>');
+        return Command::FAILURE;
+    }
+
     /**
      * Get list of registered upgrade wizards.
      *
@@ -294,7 +340,7 @@ final class UpgradeWizardRunCommand extends Command
                 }
                 
             } catch(\Exception $e) {
-                throw new Exception($e->getMessage(), 1533931000);
+                throw new \Exception($e->getMessage(), 1533931000);
             }
         }
 
