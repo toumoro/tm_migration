@@ -31,48 +31,82 @@ final class RunSqlScriptCommand extends Command
     {
         $this
             ->setDescription('Run custom SQL scripts.')
+            ->addOption('directory', 'd', InputOption::VALUE_OPTIONAL, 'Directory Source')
             ->addOption('file', 'f', InputOption::VALUE_OPTIONAL, 'File Name', self::FILE_NAME)
-            ->setHelp('This command execute an SQL script with a file name as parameter. Default file name is migration.sql');
+            ->setHelp(
+                <<<HELP
+                Executes an SQL migration script.
+
+                You can specify a custom directory using the --directory (-d) option.
+                By default, the command looks for a file named "migration.sql" in the specified or current directory.
+                HELP
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io = new SymfonyStyle($input, $output);
-        $fileName = $this->getFileName($input);
-        $content = file_get_contents($fileName);
 
-        // check if the file is not empty
-        if($content) {
+        $fileNames = $this->getFileNames($input);
 
-            $queries = array_filter(
-                array_map(
-                    fn($q) => trim($q, " \t\n\r\0\x0B;"),
-                    explode(';', $content)
-                )
-            );
+        if(isset($fileNames)) {
+            foreach ($fileNames as $fileName) {
+                $content = file_get_contents($fileName);
 
-            $sqlMigrationService = GeneralUtility::makeInstance(SqlMigrationService::class);
-            $condition = $sqlMigrationService->migrate($queries) > 0;
-            if($condition){
-                $success = Command::SUCCESS;
-                $this->io->info($fileName . ' executed with no errors.');
+                // check if the file is not empty
+                if($content) {
+
+                    $queries = array_filter(
+                        array_map(
+                            fn($q) => trim($q, " \t\n\r\0\x0B;"),
+                            explode(';', $content)
+                        )
+                    );
+
+                    $sqlMigrationService = GeneralUtility::makeInstance(SqlMigrationService::class);
+                    $condition = $sqlMigrationService->migrate($queries) > 0;
+                    if($condition) {
+                        $success = Command::SUCCESS;
+                        $this->io->info($fileName . ' executed with no errors.');
+                    }
+                    else {
+                        $success = Command::FAILURE;
+                        $this->io->info($fileName . ' failed to be executed.');
+                    } 
+                } 
+                else {
+                    $success = Command::FAILURE;
+                    $this->io->info($fileName . ' is empty.');
+                }
             }
-            else{
-                $success = Command::FAILURE;
-                $this->io->info($fileName . ' failed to be executed.');
-            } 
-        } 
-        else {
-            $this->io->info($fileName . ' is empty.');
-            $success = Command::SUCCESS;
+        } else {
+            $success = Command::FAILURE;
+            $this->io->info('no sql file found !');
         }
-
+        
         return $success;
     }
 
-    private function getFileName($input): string
+    private function getFileNames($input): array
     {
-        return Environment::getProjectPath() . '/' .$input->getOption('file') ?? self::FILE_NAME;
-    }
+        $file = $input->getOption('file');
 
+        if(file_exists($file) && $file) {
+            $fileName = Environment::getProjectPath() . '/' . $file;
+            
+            return [
+                $fileName ?? self::FILE_NAME
+            ];
+        }
+
+        $directory = $input->getOption('directory');
+
+        if(file_exists($directory) && $directory) {
+            $files = glob($directory . '/*.sql', GLOB_MARK);
+            
+            return $files;
+        }
+
+        return [];
+    }
 }

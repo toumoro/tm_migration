@@ -53,10 +53,41 @@ vendor/bin/typo3 tmupgrade:fixdatabaseerrors
 
 #### SQL Migration Command
 
-Command that allows execution of custom SQL scripts during the migration process, useful for applying additional database adjustments.  
+This command allows the execution of custom SQL scripts as part of the migration process. It's especially useful for applying additional database changes that are not handled automatically by TYPO3 or Doctrine migrations.
+
+##### Prerequisites
+
+Ensure the migration folder is copied to the base directory of your project. This folder contains the necessary SQL scripts and structure required for the migration process.
+
+```bash
+chmod +x vendor/toumoro/tm-migration/services/copy-migration-folder.sh
+exec bash vendor/toumoro/tm-migration/services/copy-migration-folder.sh
+```
+
+##### Usage
 
 ```bash
 vendor/bin/typo3 tmupgrade:importsql -f [FILE_NAME]
+```
+
+- `-f [FILE_NAME]`: Specifies the SQL file to execute. If omitted, it defaults to `migration.sql`.
+- `-d [DIRECTORY]`: *(Optional)* Use this to specify a custom directory where the SQL file is located.
+
+  > There are two predefined directories under the `migration` folder:
+  > - `before-updateschema`: for SQL scripts that should run **before** the TYPO3 schema update.
+  > - `after-updateschema`: for scripts that should run **after** the schema update.
+
+For full list of options, run:
+
+```bash
+vendor/bin/typo3 tmupgrade:importsql -h
+```
+
+##### Execute the Project-Level Migration and Setup Script
+
+```bash
+chmod +x migration/run.sh
+exec bash migration/run.sh
 ```
 
 ---
