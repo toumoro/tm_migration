@@ -4,3 +4,9 @@ All notable changes to this extension will be documented in this file.
 ## [13.4.1] - 2025-06-20
 ### Added
 - Added a CLI command (tmupgrade:run) that allows executing upgrade wizards from a specific version, with an option to exclude selected wizards.
+
+## [13.4.2] - 2025-06-27
+### Fixed
+- composer.json dependencies updated for compatibility with TYPO3 v12.
+### Added
+- Added a -d option to the SQL script runner to allow execution of scripts from a specified directory.

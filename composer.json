@@ -20,11 +20,11 @@
         }
     ],
     "require": {
-        "php": ">=8.1",
+        "php": "^8.1 || ^8.2",
         "typo3/cms-core": "^12.4.0 || ^13.4.0",
         "a9f/typo3-fractor": "^v0.5.1",
-        "ssch/typo3-rector": "^v3.5.0",
-        "wapplersystems/core-upgrader": "dev-release/v13"
+        "ssch/typo3-rector": "^2.14.4 || ^v3.5.0",
+        "wapplersystems/core-upgrader": "dev-release/v12 || dev-release/v13"
     },
     "autoload": {
         "psr-4": {
