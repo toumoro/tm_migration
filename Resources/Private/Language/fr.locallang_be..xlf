@@ -6,7 +6,7 @@
 			<trans-unit id="cTypeToListTypeMappingArray" xml:space="preserve" approved="yes">
 				<target state="translated">Configuration de mappage du type de liste au CType</target>
 			</trans-unit>
-			<trans-unit id="disableTrucateLogUpgradeWizard" xml:space="preserve" approved="yes">
+			<trans-unit id="disableTruncateLogUpgradeWizard" xml:space="preserve" approved="yes">
 				<target state="translated">Désactiver l’upgrade wizard du nettoyage de logs</target>
 			</trans-unit>
 			<trans-unit id="numberOfDays" xml:space="preserve" approved="yes">

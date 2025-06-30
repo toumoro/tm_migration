@@ -6,7 +6,7 @@
 			<trans-unit id="cTypeToListTypeMappingArray" xml:space="preserve">
 				<source>List Type to CType Mapping Configuration</source>
 			</trans-unit>
-			<trans-unit id="disableTrucateLogUpgradeWizard" xml:space="preserve">
+			<trans-unit id="disableTruncateLogUpgradeWizard" xml:space="preserve">
 				<source>Disable Log Cleaner Upgrade Wizard</source>
 			</trans-unit>
 			<trans-unit id="numberOfDays" xml:space="preserve">
