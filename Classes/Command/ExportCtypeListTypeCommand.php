@@ -91,8 +91,8 @@ final class ExportCtypeListTypeCommand extends Command
     private function exportJson($list): void
     {
         foreach ($list as $row) {
-                if($row['CType'] == 'list' || $row['list_type']) {
-                $tmp[] = $row['list_type'] . ':' . 'new_content_element1';
+            if($row['CType'] == 'list' || $row['list_type']) {
+                $tmp[] = $row['list_type'] . ':' . $row['list_type'];
             }
         }
 
