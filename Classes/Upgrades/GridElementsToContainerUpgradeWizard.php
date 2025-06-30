@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Toumoro\TmMigration\Upgrades;
 
+use Doctrine\DBAL\ParameterType;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -48,7 +49,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
                 $queryBuilder->expr()->like('CType', '"%gridelements_pi%"')
             )
             ->executeQuery()
-            ->fetchOne() && ExtensionManagementUtility::isLoaded('gridelements');
+            ->fetchOne();
     }
 
     /**
@@ -96,7 +97,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
             ->where(
                 $queryBuilder->expr()->eq(
                     'uid',
-                    $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($uid, ParameterType::INTEGER)
                 )
             )
             ->executeStatement();
@@ -110,7 +111,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
             ->where(
                 $queryBuilder->expr()->eq(
                     'tx_gridelements_container',
-                    $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($uid, ParameterType::INTEGER)
                 )
             )
             ->executeQuery()
@@ -133,7 +134,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
             ->where(
                 $queryBuilder->expr()->eq(
                     'uid',
-                    $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($uid, ParameterType::INTEGER)
                 )
             )
             ->executeStatement();

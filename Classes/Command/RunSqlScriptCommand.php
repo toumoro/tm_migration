@@ -49,7 +49,7 @@ final class RunSqlScriptCommand extends Command
 
         $fileNames = $this->getFileNames($input);
 
-        if(isset($fileNames)) {
+        if(!empty($fileNames)) {
             foreach ($fileNames as $fileName) {
                 $content = file_get_contents($fileName);
 
@@ -100,7 +100,7 @@ final class RunSqlScriptCommand extends Command
         }
 
         $directory = $input->getOption('directory');
-
+        
         if(file_exists($directory) && $directory) {
             $files = glob($directory . '/*.sql', GLOB_MARK);
             
