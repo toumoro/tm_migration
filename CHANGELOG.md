@@ -10,3 +10,8 @@ All notable changes to this extension will be documented in this file.
 - composer.json dependencies updated for compatibility with TYPO3 v12.
 ### Added
 - Added a -d option to the SQL script runner to allow execution of scripts from a specified directory.
+
+## [13.4.3] - 2025-07-19
+### Added
+- XCLASS override for `MigratePagesLanguageOverlayUpdate` to fix file references in translated (overlay) page records.
+- XCLASS override for `WorkspacesNotificationSettingsUpdate`
