@@ -126,6 +126,9 @@ vendor/bin/typo3 tmupgrade:run
 - **Migrate grid elements to container**  
   Upgrade wizard to migrate `grid elements` to `container` content elements.
 
+- **Fix Broken Redirects**  
+  Upgrade wizard to repair broken redirects after a major migration.
+
 ---
 
 ### ⚙️ Rector & Fractor Configurations
