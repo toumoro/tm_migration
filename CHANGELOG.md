@@ -15,3 +15,7 @@ All notable changes to this extension will be documented in this file.
 ### Added
 - XCLASS override for `MigratePagesLanguageOverlayUpdate` to fix file references in translated (overlay) page records.
 - XCLASS override for `WorkspacesNotificationSettingsUpdate`
+
+## [13.4.4] - 2025-07-23
+### Added
+- Upgrade wizard `FixRedirectsUpgradeWizard` to repair invalid redirects caused by migrations from TYPO3 versions 9.5 or earlier.
