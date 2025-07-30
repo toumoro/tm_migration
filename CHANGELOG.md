@@ -19,3 +19,7 @@ All notable changes to this extension will be documented in this file.
 ## [13.4.4] - 2025-07-23
 ### Added
 - Upgrade wizard `FixRedirectsUpgradeWizard` to repair invalid redirects caused by migrations from TYPO3 versions 9.5 or earlier.
+
+## [13.4.5] - 2025-07-30
+### Added
+- Update `run.sh` file to include the installation of the `tm_migration` package.
