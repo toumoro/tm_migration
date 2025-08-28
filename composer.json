@@ -57,6 +57,7 @@
     },
     "scripts": {
         "post-install-cmd":  [
+            "chmod +x .githooks/pre-commit",
             "git init",
             "git config --local core.hooksPath .githooks/"
         ],
