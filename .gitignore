@@ -1,0 +1,8 @@
+/.Build
+/.cache
+/.idea
+/composer.lock
+/vendor
+/typo3temp
+/Build/phpunit/.phpunit.result.cache
+.php-cs-fixer.cache

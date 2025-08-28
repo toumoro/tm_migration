@@ -1,8 +1,10 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Toumoro\TmMigration\Upgrades;
 
+use Doctrine\DBAL\Exception as DBALException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Toumoro\TmMigration\Utility\ConfigurationUtility;
@@ -10,9 +12,8 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
-use Doctrine\DBAL\Exception as DBALException;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
+use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 /**
  * Class TruncateLogTableUpgradeWizard
@@ -65,7 +66,7 @@ final class TruncateLogTableUpgradeWizard implements UpgradeWizardInterface, Log
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class
+            DatabaseUpdatedPrerequisite::class,
         ];
     }
 
@@ -74,11 +75,11 @@ final class TruncateLogTableUpgradeWizard implements UpgradeWizardInterface, Log
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::LOG_TABLE);
         $queryBuilder->delete(self::LOG_TABLE);
 
-        if(ConfigurationUtility::getNumberOfDays()) {
+        if (ConfigurationUtility::getNumberOfDays()) {
             $numberOfDays = ConfigurationUtility::getNumberOfDays();
             $deleteTimestamp = strtotime('-' . $numberOfDays . 'days');
-            
-             $queryBuilder->where(
+
+            $queryBuilder->where(
                 $queryBuilder->expr()->lt(
                     self::DATE_FIELD,
                     $queryBuilder->createNamedParameter($deleteTimestamp, Connection::PARAM_INT)
@@ -86,7 +87,7 @@ final class TruncateLogTableUpgradeWizard implements UpgradeWizardInterface, Log
             );
         }
 
-         try {
+        try {
             $queryBuilder->executeStatement();
         } catch (DBALException $e) {
             throw new \RuntimeException(self::class . ' failed for table ' . self::LOG_TABLE . ' with error: ' . $e->getMessage(), 1308255491);

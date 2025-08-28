@@ -22,9 +22,9 @@ return RectorConfig::configure()
         Typo3SetList::GENERAL,
         Typo3LevelSetList::UP_TO_TYPO3_12,
     ])
-    # To have a better analysis from PHPStan, we teach it here some more things
+    // To have a better analysis from PHPStan, we teach it here some more things
     ->withPHPStanConfigs([
-        Typo3Option::PHPSTAN_FOR_RECTOR_PATH
+        Typo3Option::PHPSTAN_FOR_RECTOR_PATH,
     ])
     ->withRules([
         AddVoidReturnTypeWhereNoReturnRector::class,
@@ -33,9 +33,9 @@ return RectorConfig::configure()
     ->withConfiguredRule(ExtEmConfRector::class, [
         ExtEmConfRector::PHP_VERSION_CONSTRAINT => '8.1.0-8.3.99',
         ExtEmConfRector::TYPO3_VERSION_CONSTRAINT => '12.4.0-12.4.99',
-        ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => []
+        ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => [],
     ])
-    # If you use withImportNames(), you should consider excluding some TYPO3 files.
+    // If you use withImportNames(), you should consider excluding some TYPO3 files.
     ->withSkip([
         /*custom Mehdi*/
         __DIR__ . '/var/cache',
@@ -45,7 +45,7 @@ return RectorConfig::configure()
         // @see https://github.com/sabbelasichon/typo3-rector/issues/2536
         __DIR__ . '/**/Configuration/ExtensionBuilder/*',
         NameImportingPostRector::class => [
-           'ClassAliasMap.php',
-        ]
+            'ClassAliasMap.php',
+        ],
     ])
 ;

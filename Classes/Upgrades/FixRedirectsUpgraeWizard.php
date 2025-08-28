@@ -1,17 +1,18 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Toumoro\TmMigration\Upgrades;
 
+use Doctrine\DBAL\ParameterType;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
-use Doctrine\DBAL\ParameterType;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
+use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 /**
  * Class TruncateLogTableUpgradeWizard
@@ -45,7 +46,7 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
      */
     public function updateNecessary(): bool
     {
-        return (bool) count($this->getBrokenRedirects());
+        return (bool)count($this->getBrokenRedirects());
     }
 
     /**
@@ -64,7 +65,7 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class
+            DatabaseUpdatedPrerequisite::class,
         ];
     }
 
@@ -72,11 +73,11 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
     {
         $redirects = $this->getBrokenRedirects();
 
-        if(!empty($redirects)) {
+        if (!empty($redirects)) {
 
             foreach ($redirects as $row) {
                 $sourcePath = $row['source_path'];
-                
+
                 if (strpos($sourcePath, '/') !== 0) {
                     $sourcePath = '/' . ltrim($sourcePath, '/');
                 }
@@ -113,14 +114,14 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
             ->select('uid', 'source_path', 'target_statuscode')
             ->from(self::REDIRECT_TABLE)
             ->where(
-                 $queryBuilder->expr()->notLike(
+                $queryBuilder->expr()->notLike(
                     'source_path',
                     $queryBuilder->createNamedParameter('/%')
                 )
             )
             ->orWhere(
                 $queryBuilder->expr()->eq(
-                    'target_statuscode', 
+                    'target_statuscode',
                     $queryBuilder->createNamedParameter(0, ParameterType::INTEGER)
                 )
             )

@@ -1,10 +1,8 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Toumoro\TmMigration\Utility;
-
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class UpgardeWizardsMappingUtility
@@ -88,7 +86,7 @@ abstract class UpgardeWizardsMappingUtility
                 'removeOrphanedSysCategoryMMRecords',
                 'removeOrphanedSysFileMetadatas',
                 'removeOrphanedSysFileReferences',
-            ]
+            ],
         ];
     }
 }

@@ -57,7 +57,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class
+            DatabaseUpdatedPrerequisite::class,
         ];
     }
 
@@ -77,8 +77,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
             ->executeQuery()
             ->fetchAllAssociative();
 
-
-        if($result) {
+        if ($result) {
             foreach ($result as $gridElement) {
                 $this->updateContainer($gridElement['uid'], $gridElement['tx_gridelements_backend_layout'], $gridElement['pi_flexform']);
                 $this->updateChildren($gridElement['uid']);
@@ -116,8 +115,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
             ->executeQuery()
             ->fetchAllAssociative();
 
-
-        if($result) {
+        if ($result) {
             foreach ($result as $child) {
                 $this->updateChild($child['uid'], $child['tx_gridelements_container'], $child['tx_gridelements_columns']);
             }

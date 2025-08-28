@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Toumoro\TmMigration\Utility;
 
@@ -11,7 +12,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 abstract class ConfigurationUtility
 {
-
     /**
      * Get extension configuration from LocalConfiguration.php
      *
@@ -23,14 +23,14 @@ abstract class ConfigurationUtility
     {
         return (array)GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('tm_migration');
     }
-    
+
     public static function isDisableTruncateLogUpgradeWizard(): bool
     {
         $configuration = self::getExtensionConfiguration();
 
         return $configuration['disableTruncateLogUpgradeWizard'] === '1';
     }
-    
+
     public static function getNumberOfDays(): string
     {
         $configuration = self::getExtensionConfiguration();
@@ -42,8 +42,8 @@ abstract class ConfigurationUtility
     {
         $configuration = self::getExtensionConfiguration();
 
-        if(!empty($configuration['upgradeWizards']['exlcuded'])) {
-            return explode(',', $configuration['upgradeWizards']['exlcuded']); 
+        if (!empty($configuration['upgradeWizards']['exlcuded'])) {
+            return explode(',', $configuration['upgradeWizards']['exlcuded']);
         }
 
         return [];
