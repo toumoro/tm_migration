@@ -7,12 +7,12 @@ $EM_CONF['tm_migration'] = [
     'author' => 'Haythem Daoud',
     'author_email' => 'haythem.daoud@toumoro.com',
     'state' => 'stable',
-    'version' => '13.4.5',
+    'version' => '13.4.6',
     'constraints' => [
         'depends' => [
             'a9f/typo3-fractor' => '*',
             'ssch/typo3-rector' => '*',
-            'wapplersystems/core-upgrader' => '*'
+            'wapplersystems/core-upgrader' => '*',
         ],
         'conflicts' => [],
         'suggests' => [],

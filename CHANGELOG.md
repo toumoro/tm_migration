@@ -23,3 +23,7 @@ All notable changes to this extension will be documented in this file.
 ## [13.4.5] - 2025-07-30
 ### Added
 - Update `run.sh` file to include the installation of the `tm_migration` package.
+
+## [13.4.6] - 2025-08-28
+### Added
+- Unit tests and Coding Standards.

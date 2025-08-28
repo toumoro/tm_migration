@@ -32,7 +32,7 @@ final class ExportCtypeListTypeCommand extends Command
     protected const FIELDS = [
         'CType',
         'list_type',
-        'pids'
+        'pids',
     ];
     protected const FILE_NAME = 'export.csv';
     protected const FILE_TYPE_JSON = 'json';
@@ -59,7 +59,7 @@ final class ExportCtypeListTypeCommand extends Command
         $listTypeAndCTypeArray = $this->getListTypeAndCTypeArray();
         $fileType = $input->getOption('fileType');
 
-        if($fileType && strtolower($fileType) == self::FILE_TYPE_JSON) {
+        if ($fileType && strtolower($fileType) == self::FILE_TYPE_JSON) {
             $this->exportJson($listTypeAndCTypeArray);
         } else {
             $contents = $this->export($listTypeAndCTypeArray, self::FIELDS);
@@ -91,14 +91,14 @@ final class ExportCtypeListTypeCommand extends Command
     private function exportJson($list): void
     {
         foreach ($list as $row) {
-            if($row['CType'] == 'list' || $row['list_type']) {
+            if ($row['CType'] == 'list' || $row['list_type']) {
                 $tmp[] = $row['list_type'] . ':' . $row['list_type'];
             }
         }
 
         $this->io->info('Here is the configuration for List Type to CType Mapping.');
         $this->io->text(implode(',', $tmp));
-        echo(PHP_EOL);
+        echo PHP_EOL;
     }
 
     private function renderHeader($fields): array
@@ -109,9 +109,9 @@ final class ExportCtypeListTypeCommand extends Command
     private function renderContent($row, $fields): array
     {
         $data = [];
-        
+
         foreach ($fields as $field) {
-            if($field == 'pids') {
+            if ($field == 'pids') {
                 $data[] = $row['pids'];
             } else {
                 $data[] = $row[$field];

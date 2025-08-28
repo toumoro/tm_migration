@@ -1,0 +1,28 @@
+<phpunit
+    backupGlobals="true"
+    bootstrap="UnitTestsBootstrap.php"
+    colors="true"
+    processIsolation="false"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    testdox="true"
+    beStrictAboutTestsThatDoNotTestAnything="false"
+    displayDetailsOnTestsThatTriggerDeprecations="true"
+    displayDetailsOnTestsThatTriggerErrors="true"
+    displayDetailsOnTestsThatTriggerNotices="true"
+    displayDetailsOnTestsThatTriggerWarnings="true"
+    displayDetailsOnPhpunitDeprecations="true"
+>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>../../Tests/Unit/</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+		<include>
+            <directory>../../Classes/</directory>
+        </include>
+    </source>
+</phpunit>

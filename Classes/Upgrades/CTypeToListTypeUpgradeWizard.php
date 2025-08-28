@@ -15,7 +15,6 @@ use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 #[UpgradeWizard('tmMigration_cTypeToListTypeUpgradeWizard')]
 final class CTypeToListTypeUpgradeWizard extends AbstractListTypeToCTypeUpdate
 {
-
     private const MAPPING_ARRAY = 'cTypeToListTypeMappingArray';
 
     public function getTitle(): string
@@ -41,13 +40,13 @@ final class CTypeToListTypeUpgradeWizard extends AbstractListTypeToCTypeUpdate
      * @return array<string, string>
      */
     protected function getListTypeToCTypeMapping(): array
-    {   
+    {
         /** @var ExtensionConfiguration $extensionConfiguration */
         $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
 
         $emConfiguration = $extensionConfiguration->get('tm_migration');
 
-        if(isset($emConfiguration[self::MAPPING_ARRAY])) {
+        if (isset($emConfiguration[self::MAPPING_ARRAY])) {
             $tmpArray = explode(',', $emConfiguration[self::MAPPING_ARRAY]);
 
             foreach ($tmpArray as $item) {

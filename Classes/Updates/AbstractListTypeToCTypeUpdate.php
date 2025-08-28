@@ -27,9 +27,9 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 /**
  * This class can be extended by 3rd party extensions to easily add a custom
  * `list_type` to `CType` update for deprecated "plugin" content element usages.
- * 
+ *
  * Class AbstractListTypeToCTypeUpdate
- * 
+ *
  * @since 13.4
  */
 abstract class AbstractListTypeToCTypeUpdate implements UpgradeWizardInterface
@@ -63,20 +63,20 @@ abstract class AbstractListTypeToCTypeUpdate implements UpgradeWizardInterface
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class
+            DatabaseUpdatedPrerequisite::class,
         ];
     }
 
     public function updateNecessary(): bool
     {
         return (
-            $this->getListTypeToCTypeMapping() !== [] &&
-            $this->columnsExistInContentTable() &&
-            $this->hasContentElementsToUpdate()
+            $this->getListTypeToCTypeMapping() !== []
+            && $this->columnsExistInContentTable()
+            && $this->hasContentElementsToUpdate()
         )
             || (
-                $this->getListTypeToCTypeMapping() !== [] &&
-                $this->columnsExistInBackendUserGroupsTable()
+                $this->getListTypeToCTypeMapping() !== []
+                && $this->columnsExistInBackendUserGroupsTable()
                 && $this->hasNoLegacyBackendGroupsExplicitAllowDenyConfiguration()
                 && $this->hasBackendUserGroupsToUpdate()
             );
@@ -84,14 +84,14 @@ abstract class AbstractListTypeToCTypeUpdate implements UpgradeWizardInterface
 
     public function executeUpdate(): bool
     {
-        if ($this->getListTypeToCTypeMapping() !== [] &&
-            $this->columnsExistInContentTable() &&
-            $this->hasContentElementsToUpdate()
+        if ($this->getListTypeToCTypeMapping() !== []
+            && $this->columnsExistInContentTable()
+            && $this->hasContentElementsToUpdate()
         ) {
             $this->updateContentElements();
         }
-        if ($this->getListTypeToCTypeMapping() !== [] &&
-            $this->columnsExistInBackendUserGroupsTable()
+        if ($this->getListTypeToCTypeMapping() !== []
+            && $this->columnsExistInBackendUserGroupsTable()
             && $this->hasNoLegacyBackendGroupsExplicitAllowDenyConfiguration()
             && $this->hasBackendUserGroupsToUpdate()
         ) {

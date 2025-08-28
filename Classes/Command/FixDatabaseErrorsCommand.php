@@ -51,7 +51,7 @@ final class FixDatabaseErrorsCommand extends Command
                 foreach ($records as $fields) {
                     $sortingFields = $this->getSortingFields($table, $fields);
                     $this->deleteRecords($table, $fields);
-                    $this->insertRecord($table, array_merge($fields,$sortingFields));
+                    $this->insertRecord($table, array_merge($fields, $sortingFields));
                     $progressBar->advance();
                 }
                 $progressBar->finish();
@@ -72,7 +72,7 @@ final class FixDatabaseErrorsCommand extends Command
             $where[] = $queryBuilder->expr()->eq($field, $queryBuilder->createNamedParameter($value));
         }
         $result = $queryBuilder
-            ->select('sorting','sorting_foreign')
+            ->select('sorting', 'sorting_foreign')
             ->from($table)
             ->where(...$where)
             ->executeQuery();
@@ -131,7 +131,7 @@ final class FixDatabaseErrorsCommand extends Command
                     ->having('COUNT(fieldname) > 1')
                     ->executeQuery();
             } elseif ($this->tableHasMmMatchFields($mmTable) === false) {
-                if(in_array($mmTable, ['sys_dmail_ttaddress_category_mm','sys_dmail_feuser_category_mm','sys_dmail_group_category_mm'])){
+                if (in_array($mmTable, ['sys_dmail_ttaddress_category_mm', 'sys_dmail_feuser_category_mm', 'sys_dmail_group_category_mm'])) {
                     $queryBuilder = $this->connectionPool->getQueryBuilderForTable($mmTable);
                     $result = $queryBuilder
                         ->select('uid_local', 'uid_foreign', 'tablenames')
@@ -140,8 +140,7 @@ final class FixDatabaseErrorsCommand extends Command
                         ->having('COUNT(uid_local) > 1')
                         ->having('COUNT(uid_foreign) > 1')
                         ->executeQuery();
-                }
-                else{
+                } else {
                     $queryBuilder = $this->connectionPool->getQueryBuilderForTable($mmTable);
                     $result = $queryBuilder
                         ->select('uid_local', 'uid_foreign')

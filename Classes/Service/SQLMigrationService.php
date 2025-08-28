@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Toumoro\TmMigration\Service;
@@ -8,9 +9,9 @@ use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Class SqlMigrationService
+ * Class SQLMigrationService
  */
-class SqlMigrationService
+class SQLMigrationService
 {
     /**
      * @param array $queries

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Toumoro\TmMigration\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
@@ -11,6 +12,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Toumoro\TmMigration\Utility\ConfigurationUtility;
+use Toumoro\TmMigration\Utility\UpgardeWizardsMappingUtility;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Configuration\Exception\SettingsWriteException;
 use TYPO3\CMS\Core\Core\Bootstrap;
@@ -29,13 +32,10 @@ use TYPO3\CMS\Install\Updates\ConfirmableInterface;
 use TYPO3\CMS\Install\Updates\PrerequisiteCollection;
 use TYPO3\CMS\Install\Updates\RepeatableInterface;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
-use Toumoro\TmMigration\Utility\ConfigurationUtility;
-use Toumoro\TmMigration\Utility\UpgardeWizardsMappingUtility;
-use Symfony\Component\Console\Attribute\AsCommand;
 
 /**
  * Upgrade wizard command for running wizards
- * 
+ *
  * Class UpgradeWizardRunCommand
  */
 #[AsCommand(
@@ -110,9 +110,9 @@ final class UpgradeWizardRunCommand extends Command
                 'wizardName',
                 InputArgument::OPTIONAL
             )->setHelp(
-                'This command allows running upgrade wizards on CLI. To run a single wizard add the ' .
-                'identifier of the wizard as argument. The identifier of the wizard is the name it is ' .
-                'registered with in ext_localconf.'
+                'This command allows running upgrade wizards on CLI. To run a single wizard add the '
+                . 'identifier of the wizard as argument. The identifier of the wizard is the name it is '
+                . 'registered with in ext_localconf.'
             );
     }
 
@@ -214,9 +214,9 @@ final class UpgradeWizardRunCommand extends Command
                 $result = $prerequisite->ensure();
                 if ($result === false) {
                     $this->output->error(
-                        '<error>Error running ' .
-                        $prerequisite->getTitle() .
-                        '. Please ensure this prerequisite manually and try again.</error>'
+                        '<error>Error running '
+                        . $prerequisite->getTitle()
+                        . '. Please ensure this prerequisite manually and try again.</error>'
                     );
                     break;
                 }
@@ -323,7 +323,7 @@ final class UpgradeWizardRunCommand extends Command
 
         $excludedWizards = [];
 
-        if($fromVersion) {
+        if ($fromVersion) {
             foreach ($upgradeWizardsMapping as $version => $wizards) {
                 if (version_compare((string)$version, $fromVersion, '<')) {
                     $excludedWizards = array_merge($excludedWizards, $wizards);
@@ -331,15 +331,15 @@ final class UpgradeWizardRunCommand extends Command
             }
         }
 
-        if(isset($excludedIdentifiers)) {
+        if (isset($excludedIdentifiers)) {
             try {
-                foreach($excludedIdentifiers as $identifier) {
-                    if($this->isValid($identifier)) {
+                foreach ($excludedIdentifiers as $identifier) {
+                    if ($this->isValid($identifier)) {
                         array_push($excludedWizards, $identifier);
                     }
                 }
-                
-            } catch(\Exception $e) {
+
+            } catch (\Exception $e) {
                 throw new \Exception($e->getMessage(), 1533931000);
             }
         }
