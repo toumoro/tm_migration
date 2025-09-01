@@ -22,7 +22,7 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
     use LoggerAwareTrait;
 
     private const REDIRECT_TABLE = 'sys_redirect';
-    private const DEFAULT_STATUS_CODE = 307;
+    private const DEFAULT_STATUS_CODE = 301;
 
     /**
      * @return string Title of this updater
@@ -73,11 +73,11 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
         $redirects = $this->getBrokenRedirects();
 
         if(!empty($redirects)) {
-
+            
             foreach ($redirects as $row) {
                 $sourcePath = $row['source_path'];
                 
-                if (strpos($sourcePath, '/') !== 0) {
+                if (strpos($sourcePath, '/') !== 0 && $row['is_regexp'] == 0) {
                     $sourcePath = '/' . ltrim($sourcePath, '/');
                 }
 
@@ -91,7 +91,7 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
                         )
                     )
                     ->set('source_path', $sourcePath)
-                    ->set('target_statuscode', self::DEFAULT_STATUS_CODE)
+                    ->set('target_statuscode', $row['target_statuscode'] ?? self::DEFAULT_STATUS_CODE)
                     ->executeStatement();
             }
 
@@ -110,7 +110,7 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
     {
         $queryBuilder = $this->getTableConnection();
         return $queryBuilder
-            ->select('uid', 'source_path', 'target_statuscode')
+            ->select('uid', 'source_path', 'target_statuscode', 'is_regexp')
             ->from(self::REDIRECT_TABLE)
             ->where(
                  $queryBuilder->expr()->notLike(
