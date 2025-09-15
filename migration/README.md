@@ -71,7 +71,7 @@ FR
 > ## Préparation avant le déploiement en production
 
 💡 **À compléter si nécessaire :**  
-_Steps à réaliser avant le jour de migration par un <u>développeur</u>._  
+_Étapes à réaliser avant le jour de migration par un <u>développeur</u>._  
 
 * Simuler l'ensemble du processus de migration sur l'instance DEV avec une nouvelle copie de la base de données pour s'assurer que tout est prêt comme prévu pour le déploiement en production.
 
@@ -85,14 +85,14 @@ _Steps à réaliser avant le jour de migration par un <u>développeur</u>._
 ### 2. Copier la base de données de production
 
 💡 **À compléter si nécessaire :**  
-_Steps à réaliser par un <u>devops</u>_  
+_Étapes à réaliser par un <u>devops</u>_  
 
 * Cette étape consiste à prendre un nouveau snapshot de la base de données depuis l'instance de production actuelle.
 
 ### 3. Synchroniser les dossiers public/fileadmin et public/secure
 
 💡 **À compléter si nécessaire :**  
-_Steps à réaliser par un <u>devops</u>_  
+_Étapes à réaliser par un <u>devops</u>_  
 
 ### 4. Exécuter la procédure de migration TYPO3
 
@@ -105,7 +105,7 @@ _Steps à réaliser par un <u>devops</u>_
 ### 5. Vérifier le fonctionnement et l'intégration du site
 
 💡 **À compléter si nécessaire :**  
-_Steps à réaliser par un <u>développeur</u>_  
+_Étapes à réaliser par un <u>développeur</u>_  
 
 - Réindexer solr et solrfal (si applicable).
 - Vérifier que les packs de langues sont correctement installés.
@@ -117,11 +117,11 @@ _Steps à réaliser par un <u>développeur</u>_
 ### 6. Basculer vers la version migrée
 
 💡 **À compléter si nécessaire :**  
-_Steps à réaliser par un <u>devops</u>_  
+_Étapes à réaliser par un <u>devops</u>_  
 
 ### 7. Validation
 
 💡 **À compléter si nécessaire :**  
-_Steps à réaliser par un <u>développeur</u>_  
+_Étapes à réaliser par un <u>développeur</u>_  
 
 - Effectuer des tests aléatoires pour valider le bon fonctionnement du site.
