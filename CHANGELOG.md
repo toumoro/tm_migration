@@ -1,7 +1,11 @@
 # Changelog
 All notable changes to this extension will be documented in this file.
 
-## [13.4.51] - 2025-09-01
+## [13.4.7] - 2025-09-15
+### Fixed
+- Exclude the `source_path` field that begins with 'https://' and 'http://' in the `FixRedirectsUpgradeWizard` file.
+
+## [13.4.6] - 2025-09-01
 ### Fixed
 - Fixed regex redirection logic in `FixRedirectsUpgradeWizard`.
 
