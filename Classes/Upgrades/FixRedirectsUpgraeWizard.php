@@ -77,7 +77,11 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
             foreach ($redirects as $row) {
                 $sourcePath = $row['source_path'];
                 
-                if (strpos($sourcePath, '/') !== 0 && $row['is_regexp'] == 0) {
+                if (strpos($sourcePath, '/') !== 0 
+                    && $row['is_regexp'] == 0
+                    && strpos($sourcePath, 'https://') !== 0
+                    && strpos($sourcePath, 'http://') !== 0
+                ) {
                     $sourcePath = '/' . ltrim($sourcePath, '/');
                 }
 
