@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this extension will be documented in this file.
 
+## [13.4.8] - 2025-09-16
+### Fixed
+- Exclure certaines classes de la règle rector `GeneralUtilityMakeInstanceToConstructorPropertyRector`.
+
 ## [13.4.7] - 2025-09-15
 ### Fixed
 - Exclude the `source_path` field that begins with 'https://' and 'http://' in the `FixRedirectsUpgradeWizard` file.
