@@ -45,6 +45,10 @@ _Étapes à réaliser par un <u>devops</u>_
 💡 **À compléter si nécessaire :**  
 _Étapes à réaliser par un <u>développeur</u>_  
 
+#### 5.1. Effectuer les modifications manuellement dans le BE qui n'ont pas été intégrées à la procédure (à lister ici)
+
+#### 5.2. Effectuez les vérifications indiquées, le cas échéant
+
 - Réindexer solr et solrfal (si applicable).
 - Vérifier que les packs de langues sont correctement installés.
 - S'assurer que les utilisateurs backend (éditeurs) disposent des permissions appropriées, y compris les modules et mounts de base de données nécessaires pour accéder aux pages et aux fichiers.
@@ -110,6 +114,10 @@ _Steps to be performed by a <u>devops</u>_
 
 💡 **To complete if necessary:**  
 _Steps to be performed by a <u>developer</u>_  
+
+#### 5.1. Manually make the changes in the BE that have not been included in the procedure (list them here)
+
+#### 5.2. Perform the indicated checks, if applicable
 
 - Reindex solr and solrfal (if applicable).
 - Verify that language packs are installed correctly.
