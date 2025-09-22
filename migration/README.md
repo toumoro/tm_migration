@@ -5,8 +5,8 @@ FR
 
 > ## Préparation avant le déploiement en production
 
-💡 **À compléter si nécessaire :**  
-_Étapes à réaliser avant le jour de migration par un <u>développeur</u>._  
+💡 **À compléter si nécessaire :**
+_Étapes à réaliser avant le jour de migration par un <u>développeur</u>._
 
 * Simuler l'ensemble du processus de migration sur l'instance DEV avec une nouvelle copie de la base de données pour s'assurer que tout est prêt comme prévu pour le déploiement en production.
 
@@ -19,22 +19,22 @@ _Étapes à réaliser avant le jour de migration par un <u>développeur</u>._
 
 ### 2. Copier la base de données de production
 
-💡 **À compléter si nécessaire :**  
-_Étapes à réaliser par un <u>devops</u>_  
+💡 **À compléter si nécessaire :**
+_Étapes à réaliser par un <u>devops</u>_
 
 * Cette étape consiste à prendre un nouveau snapshot de la base de données depuis l'instance de production actuelle.
 
 ### 3. Synchroniser les dossiers public/fileadmin et public/secure
 
-💡 **À compléter si nécessaire :**  
-_Étapes à réaliser par un <u>devops</u>_  
+💡 **À compléter si nécessaire :**
+_Étapes à réaliser par un <u>devops</u>_
 
 ### 4. Exécuter la procédure de migration TYPO3
 
-💡 **À compléter si nécessaire :**  
-_Étapes à réaliser par un <u>devops</u>_  
+💡 **À compléter si nécessaire :**
+_Étapes à réaliser par un <u>devops</u>_
 
-* Exécuter le script de migration :  
+* Exécuter le script de migration :
   ```bash
   ./migration/run.sh
   ```
@@ -42,8 +42,8 @@ _Étapes à réaliser par un <u>devops</u>_
 
 ### 5. Vérifier le fonctionnement et l'intégration du site
 
-💡 **À compléter si nécessaire :**  
-_Étapes à réaliser par un <u>développeur</u>_  
+💡 **À compléter si nécessaire :**
+_Étapes à réaliser par un <u>développeur</u>_
 
 #### 5.1. Effectuer les modifications manuellement dans le BE qui n'ont pas été intégrées à la procédure (à lister ici)
 
@@ -58,13 +58,13 @@ _Étapes à réaliser par un <u>développeur</u>_
 
 ### 6. Basculer vers la version migrée
 
-💡 **À compléter si nécessaire :**  
-_Étapes à réaliser par un <u>devops</u>_  
+💡 **À compléter si nécessaire :**
+_Étapes à réaliser par un <u>devops</u>_
 
 ### 7. Validation
 
-💡 **À compléter si nécessaire :**  
-_Étapes à réaliser par un <u>développeur</u>_  
+💡 **À compléter si nécessaire :**
+_Étapes à réaliser par un <u>développeur</u>_
 
 - Effectuer des tests aléatoires pour valider le bon fonctionnement du site (s'appuyer sur les tickets de bugs résolus pour tester globalement).
 
@@ -75,8 +75,8 @@ EN
 
 > ## Preparation Before Production Deployment
 
-💡 **To complete if necessary:**  
-_Steps to be performed before the migration day by a <u>developer</u>._  
+💡 **To complete if necessary:**
+_Steps to be performed before the migration day by a <u>developer</u>._
 
 * Simulate the entire migration process on the DEV instance with a new copy of the database to ensure that everything is ready as planned for deployment to prodcution.
 
@@ -89,22 +89,22 @@ _Steps to be performed before the migration day by a <u>developer</u>._
 
 ### 2. Copy Production Database
 
-💡 **To complete if necessary:**  
-_Steps to be performed by a <u>devops</u>_  
+💡 **To complete if necessary:**
+_Steps to be performed by a <u>devops</u>_
 
 * This step involves taking a fresh DB snapshot from the actual production instance.
 
 ### 3. Synchronize the public/fileadmin and public/secure folders.
 
-💡 **To complete if necessary:**  
-_Steps to be performed by a <u>devops</u>_  
+💡 **To complete if necessary:**
+_Steps to be performed by a <u>devops</u>_
 
 ### 4. Execute TYPO3 Migration Procedure
 
-💡 **To complete if necessary:**  
-_Steps to be performed by a <u>devops</u>_  
+💡 **To complete if necessary:**
+_Steps to be performed by a <u>devops</u>_
 
-* Run migration shell script:  
+* Run migration shell script:
   ```bash
   ./migration/run.sh
   ```
@@ -112,8 +112,8 @@ _Steps to be performed by a <u>devops</u>_
 
 ### 5. Verify Website Functionality & Integration
 
-💡 **To complete if necessary:**  
-_Steps to be performed by a <u>developer</u>_  
+💡 **To complete if necessary:**
+_Steps to be performed by a <u>developer</u>_
 
 #### 5.1. Manually make the changes in the BE that have not been included in the procedure (list them here)
 
@@ -128,13 +128,13 @@ _Steps to be performed by a <u>developer</u>_
 
 ### 6. Switch To The Migrated Version
 
-💡 **To complete if necessary:**  
-_Steps to be performed by a <u>devops</u>_  
+💡 **To complete if necessary:**
+_Steps to be performed by a <u>devops</u>_
 
 
 ### 7. Validation
 
-💡 **To complete if necessary:**  
-_Steps to be performed by a <u>developer</u>_  
+💡 **To complete if necessary:**
+_Steps to be performed by a <u>developer</u>_
 
 - Perform random tests to verify that the site is functioning correctly (rely on resolved bug tickets for global testing).
