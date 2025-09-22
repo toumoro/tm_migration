@@ -8,7 +8,7 @@ FR
 💡 **À compléter si nécessaire :**
 _Étapes à réaliser avant le jour de migration par un <u>développeur</u>._
 
-* Simuler l'ensemble du processus de migration sur l'instance DEV avec une nouvelle copie de la base de données pour s'assurer que tout est prêt comme prévu pour le déploiement en production.
+* Simuler l'ensemble du processus de migration sur l'instance DEV avec une nouvelle copie de la base de données et des fichiers pour s'assurer que tout est prêt comme prévu pour le déploiement en production.
 
 > ## Le jour du déploiement en production
 
@@ -22,12 +22,14 @@ _Étapes à réaliser avant le jour de migration par un <u>développeur</u>._
 💡 **À compléter si nécessaire :**
 _Étapes à réaliser par un <u>devops</u>_
 
-* Cette étape consiste à prendre un nouveau snapshot de la base de données depuis l'instance de production actuelle.
+* Cette étape consiste à copier les données depuis la base de données de production actuelle vers la nouvelle base de données.
 
 ### 3. Synchroniser les dossiers public/fileadmin et public/secure
 
 💡 **À compléter si nécessaire :**
 _Étapes à réaliser par un <u>devops</u>_
+
+* Cette étape est seulement applicable si l'environnement de production est dupliqué. Elle n'est généralement pas applicable lorsque le fileadmin est sur S3.
 
 ### 4. Exécuter la procédure de migration TYPO3
 
@@ -38,7 +40,7 @@ _Étapes à réaliser par un <u>devops</u>_
   ```bash
   ./migration/run.sh
   ```
-* Garder toutes les modifications tracées sur GitHub et éviter toute modification manuelle directement dans le backend **uniquement en cas de besoin**
+* Garder toutes les modifications dans le script de migration et éviter toute modification manuelle directement dans le backend. Mettre à jour le script dans la branche *migration* du git. **Des modifications manuelles peuvent être nécessaires, mais doivent être utilisées seulement en dernier recours.**
 
 ### 5. Vérifier le fonctionnement et l'intégration du site
 
@@ -78,7 +80,7 @@ EN
 💡 **To complete if necessary:**
 _Steps to be performed before the migration day by a <u>developer</u>._
 
-* Simulate the entire migration process on the DEV instance with a new copy of the database to ensure that everything is ready as planned for deployment to prodcution.
+* Simulate the entire migration process on the DEV instance with a new copy of the database and files to ensure that everything is ready as planned for deployment to prodcution.
 
 > ## On Production Deployment day
 
@@ -92,12 +94,14 @@ _Steps to be performed before the migration day by a <u>developer</u>._
 💡 **To complete if necessary:**
 _Steps to be performed by a <u>devops</u>_
 
-* This step involves taking a fresh DB snapshot from the actual production instance.
+* This step involves copying the data from the current production database to the new database.
 
 ### 3. Synchronize the public/fileadmin and public/secure folders.
 
 💡 **To complete if necessary:**
 _Steps to be performed by a <u>devops</u>_
+
+* This step is only applicable is the production environment is duplicates. It is generally not applicable when the fileadmin is on S3.
 
 ### 4. Execute TYPO3 Migration Procedure
 
@@ -108,7 +112,7 @@ _Steps to be performed by a <u>devops</u>_
   ```bash
   ./migration/run.sh
   ```
-* Keep all changes traced in github and avoid any manual changes directly in the backend **only in the case of need**.
+* Keep all changes in the migration script and avoid any manual changes directly in the backend. Keep the migration script up to date in the *migration* branch in git. **Manual changes might be necessary, but must be used only as a last resort.**.
 
 ### 5. Verify Website Functionality & Integration
 
