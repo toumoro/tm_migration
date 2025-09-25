@@ -25,11 +25,11 @@ services:
         command: 'tmupgrade:importsql'
         description: 'Run custom SQL scripts.'
 
-  Toumoro\TmMigration\Command\ClearSysLogCommand:
+  Toumoro\TmMigration\Command\SeperateSyshistoryFromSyslogCommand:
     tags:
       - name: console.command
-        command: 'tmupgrade:clearsyslog'
-        description: 'This command execute an SQL script that clears the sys_log database table. -d days -l limit.'
+        command: 'tmupgrade:sepearate-syshistory-from-syslog'
+        description: 'This command execute an SQL script that seperates sys_history from sys_log table [options] -d days -l limit.'
 
   Toumoro\TmMigration\Command\UpgradeWizardRunCommand:
     tags:
