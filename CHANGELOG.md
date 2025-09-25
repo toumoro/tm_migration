@@ -4,7 +4,6 @@ All notable changes to this extension will be documented in this file.
 ## [13.4.9] - 2025-09-25
 ### Added
 - Rename `ClearSysLogCommand` to `SeperateSyshistoryFromSyslogCommand`.
-- Update `README.md` file.
 
 ## [13.4.8] - 2025-09-19
 ### Added
