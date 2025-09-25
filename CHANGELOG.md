@@ -1,10 +1,14 @@
 # Changelog
 All notable changes to this extension will be documented in this file.
 
+## [13.4.9] - 2025-09-25
+### Added
+- Rename `ClearSysLogCommand` to `SeperateSyshistoryFromSyslogCommand`.
+
 ## [13.4.8] - 2025-09-19
 ### Added
 - Add a `README.md` file to the `migrations` folder to detail the list of steps to follow when deploying a migrated site.
-- Exclure certaines classes de la règle rector `GeneralUtilityMakeInstanceToConstructorPropertyRector`.
+- Exclude certain classes from the Rector rule `GeneralUtilityMakeInstanceToConstructorPropertyRector`.
 
 ## [13.4.7] - 2025-09-15
 ### Fixed
