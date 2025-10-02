@@ -58,6 +58,9 @@ vendor/toumoro/tm-migration/services/configure.sh
 
 **5. Exporter les valeurs `CType` et `list_type` en JSON ou CSV (optionnel) :**
 
+- Ces commandes d'export de CType/ListType préparent à l'éxécution des Ugrade Wizards.
+- Permet de générer le mapping de ListType vers CType afin de les préciser dans setting.php (tm_migration[cTypeToListTypeMappingArray]).
+
 ```bash
 vendor/bin/typo3 tmexport:types -t [TYPE_FICHIER] -m [NOM_FICHIER]
 ```
@@ -74,27 +77,39 @@ Exemple pour JSON :
 vendor/bin/typo3 tmexport:types -t json
 ```
 
-**6. Exécuter les Upgrade Wizards :**
+**6. Corriger les relations MM en double (uniquement si nécessaire) :**
+
+  - 6.0. Exécuter la commande de correction des doublons MM :
+    ```bash
+    vendor/bin/typo3 tmupgrade:fixdatabaseerrors
+    ```
+  - 6.1. Exécuter la commande de update schema :
+    ```bash
+    vendor/bin/typo3 database:updateschema "*.add,*.change"
+    ```
+
+**7. Exécuter les Upgrade Wizards :**
 
 ```bash
 vendor/bin/typo3 tmupgrade:run
 ```
 
-**7. Copier les fichiers de configuration Rector & Fractor dans votre projet :**
+**8. Copier les fichiers de configuration Rector & Fractor dans votre projet :**
 
 ```bash
 cp vendor/toumoro/tm-migration/Resources/Private/Config/Rector/rector_v13.php .
 cp vendor/toumoro/tm-migration/Resources/Private/Config/Fractor/fractor_v13.php .
 ```
 
-**8. Exécuter Rector & Fractor en mode simulation (dry-run) :**
+**9. Exécuter Rector & Fractor en mode simulation (dry-run) :**
 
 ```bash
 vendor/bin/rector process --debug --dry-run 2>&1 | tee rector-dryrun.txt
 vendor/bin/fractor process --dry-run 2>&1 | tee fractor-dryrun.txt
 ```
 
-**9. Exécuter Rector & Fractor :**
+**10. Appliquer les correctifs de Rector & Fractor :**
+
 ```bash
 vendor/bin/rector process
 vendor/bin/fractor process
@@ -103,17 +118,12 @@ vendor/bin/fractor process
 > **Astuce :**
 > Utiliser `--debug` avec Rector évite les problèmes liés au traitement en parallèle.
 
-**10. Importer les fichiers SQL (avant et après la mise à jour du schéma de base de données) :**
+**11. Importer les fichiers SQL (avant et après la mise à jour du schéma de base de données) :**
 
-- 10.0. Corriger les relations MM en double (uniquement si nécessaire) :
-  ```bash
-  vendor/bin/typo3 tmupgrade:fixdatabaseerrors
-  ```
-- 10.1. Importer les fichiers SQL :
-  ```bash
-  vendor/bin/typo3 tmupgrade:importsql -f [NOM_FICHIER]
-  vendor/bin/typo3 tmupgrade:importsql -d [REPERTOIRE]
-  ```
+```bash
+vendor/bin/typo3 tmupgrade:importsql -f [NOM_FICHIER]
+vendor/bin/typo3 tmupgrade:importsql -d [REPERTOIRE]
+```
 
 Exemple :
 ```bash
@@ -121,7 +131,7 @@ vendor/bin/typo3 tmupgrade:importsql -f migration.sql
 vendor/bin/typo3 tmupgrade:importsql -d before-updateschema
 ```
 
-**11. Séparer les entrées d’historique de `sys_log` (uniquement si vous migrez un site depuis une version TYPO3 < 9.5) :**
+**12. Séparer les entrées d’historique de `sys_log` (uniquement si vous migrez un site depuis une version TYPO3 < 9.5) :**
 
 ```bash
 vendor/bin/typo3 tmupgrade:seperate-syshistory-from-syslog -d [JOURS] -l [LIMITE]
@@ -166,6 +176,7 @@ composer require toumoro/tm-migration --dev
 ```
 
 **2. Update Composer dependencies to the latest versions:**
+
 ```bash
 composer require $(composer show -s --format=json | jq '.requires | keys | map(.+" ") | add' -r)
 composer require --dev $(composer show -s --format=json | jq '.devRequires | keys | map(.+" ") | add' -r)
@@ -194,6 +205,9 @@ vendor/toumoro/tm-migration/services/configure.sh
 
 **5. Export `CType` and `list_type` values to JSON or CSV (optional):**
 
+- These CType/ListType export commands prepare for the execution of Upgrade Wizards.
+- Allows you to generate the mapping from ListType to CType in order to specify them in setting.php (tm_migration[cTypeToListTypeMappingArray]).
+
 ```bash
 vendor/bin/typo3 tmexport:types -t [FILE_TYPE] -m [FILE_NAME]
 ```
@@ -209,27 +223,39 @@ Example for JSON:
 vendor/bin/typo3 tmexport:types -t json
 ```
 
-**6. Run Upgrade Wizards:**
+**6. Fix duplicate MM relations command ( only if needed ) :**
+
+  - 6.0. Exécuter la commande de correction des doublons MM :
+    ```bash
+    vendor/bin/typo3 tmupgrade:fixdatabaseerrors
+    ```
+  - 6.1. Exécuter la commande de update schema :
+    ```bash
+    vendor/bin/typo3 database:updateschema "*.add,*.change"
+    ```
+
+**7. Run Upgrade Wizards:**
 
 ```bash
 vendor/bin/typo3 tmupgrade:run
 ```
 
-**7. Copy Rector & Fractor configuration files to your project:**
+**8. Copy Rector & Fractor configuration files to your project:**
 
 ```bash
 cp vendor/toumoro/tm-migration/Resources/Private/Config/Rector/rector_v13.php .
 cp vendor/toumoro/tm-migration/Resources/Private/Config/Fractor/fractor_v13.php .
 ```
 
-**8. Run Rector & Fractor in dry-run mode (simulation):**
+**9. Run Rector & Fractor in dry-run mode (simulation):**
 
 ```bash
 vendor/bin/rector process --debug --dry-run 2>&1 | tee rector-dryrun.txt
 vendor/bin/fractor process --dry-run 2>&1 | tee fractor-dryrun.txt
 ```
 
-**9. Execute Rector & Fractor:**
+**10. Apply Rector & Fractor corrections:**
+
 ```bash
 vendor/bin/rector process
 vendor/bin/fractor process
@@ -238,27 +264,21 @@ vendor/bin/fractor process
 > **Tip:**
 > Using `--debug` with Rector avoids issues caused by parallel processing.
 
-**10. Import SQL files (before and after database schema update):**
+**11. Import SQL files (before and after database schema update):**
 
-- 10.0. Fix duplicate MM relations command ( only if needed ):
-  ```bash
-  vendor/bin/typo3 tmupgrade:fixdatabaseerrors
-  ```
-- 10.1. Import SQL files:
+```bash
+vendor/bin/typo3 tmupgrade:importsql -f [FILE_NAME]
+vendor/bin/typo3 tmupgrade:importsql -d [DIRECTORY]
+```
 
-  ```bash
-  vendor/bin/typo3 tmupgrade:importsql -f [FILE_NAME]
-  vendor/bin/typo3 tmupgrade:importsql -d [DIRECTORY]
-  ```
+Example:
 
-  Example:
+```bash
+vendor/bin/typo3 tmupgrade:importsql -f migration.sql
+vendor/bin/typo3 tmupgrade:importsql -d before-updateschema
+```
 
-  ```bash
-  vendor/bin/typo3 tmupgrade:importsql -f migration.sql
-  vendor/bin/typo3 tmupgrade:importsql -d before-updateschema
-  ```
-
-**11. Seperate history entries from sys_log command ( only if migrating a site from TYPO3 version < 9.5 ):**
+**12. Seperate history entries from sys_log command ( only if migrating a site from TYPO3 version < 9.5 ):**
 
 ```bash
 vendor/bin/typo3 tmupgrade:sepearate-syshistory-from-syslog -d [DAYS] -l [LIMIT]
