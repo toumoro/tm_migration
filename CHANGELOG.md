@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this extension will be documented in this file.
 
+## [13.4.10] - 2025-10-21
+### Added
+- Add functional and unit tests.
+- Add GitHub Actions workflow for CI.
+
 ## [13.4.9] - 2025-09-25
 ### Added
 - Rename `ClearSysLogCommand` to `SeperateSyshistoryFromSyslogCommand`.

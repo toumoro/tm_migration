@@ -73,7 +73,7 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
     {
         $redirects = $this->getBrokenRedirects();
 
-        if(!empty($redirects)) {
+        if (!empty($redirects)) {
 
             foreach ($redirects as $row) {
                 $sourcePath = $row['source_path'];

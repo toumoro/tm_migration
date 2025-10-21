@@ -46,7 +46,7 @@ return RectorConfig::configure()
         // @see https://github.com/sabbelasichon/typo3-rector/issues/2536
         __DIR__ . '/**/Configuration/ExtensionBuilder/*',
         NameImportingPostRector::class => [
-           'ClassAliasMap.php',
+            'ClassAliasMap.php',
         ],
         // Exlclude non autoloaded classes from DI injection
         // @see https://github.com/sabbelasichon/typo3-rector/issues/4604

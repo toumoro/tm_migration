@@ -56,8 +56,7 @@ final class SeperateSyshistoryFromSyslogCommand extends Command
         if ($condition) {
             $success = Command::SUCCESS;
             $this->io->info('seperate sys_history from sys_log command executed with no errors.');
-        }
-        else{
+        } else {
             $success = Command::FAILURE;
             $this->io->info('seperate sys_history from sys_log command failed to be executed.');
         }
