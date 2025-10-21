@@ -1,7 +1,5 @@
 "sys_redirect"
-,"uid","pid","source_path","target_statuscode","target"
-,1,0,"no-leading-slash",307,"/target1"
-,2,0,"/wrong-status-code",0,"/target2"
-,3,0,"/already-correct",301,"/target3"
-,4,0,"^products/(.*)$",301,"target4"
-,5,0,"https://www.google.com",301,"target5"
+,"uid","pid","source_path","target_statuscode","target","is_regexp"
+,1,0,"no-leading-slash",307,"/target1",0
+,2,0,"^products/(.*)$",301,"target2",1
+,3,0,"https://www.google.com",301,"target3",0

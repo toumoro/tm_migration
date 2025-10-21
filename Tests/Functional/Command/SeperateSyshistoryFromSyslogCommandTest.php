@@ -8,21 +8,21 @@ use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
-use Toumoro\TmMigration\Command\ClearSysLogCommand;
+use Toumoro\TmMigration\Command\SeperateSyshistoryFromSyslogCommand;
 use Toumoro\TmMigration\Service\SQLMigrationService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-final class ClearSysLogCommandTest extends FunctionalTestCase
+final class SeperateSyshistoryFromSyslogCommandTest extends FunctionalTestCase
 {
     /**
      * @var non-empty-string
      */
-    private const COMMAND_NAME = 'tmupgrade:clearsyslog';
+    private const COMMAND_NAME = 'tmupgrade:sepearate-syshistory-from-syslog';
 
     private $mockSQLService;
 
-    private ClearSysLogCommand $subject;
+    private SeperateSyshistoryFromSyslogCommand $subject;
 
     private CommandTester $commandTester;
 
@@ -33,11 +33,11 @@ final class ClearSysLogCommandTest extends FunctionalTestCase
         $this->mockSQLService = $this->createMock(SQLMigrationService::class);
         GeneralUtility::addInstance(SQLMigrationService::class, $this->mockSQLService);
 
-        $this->subject = new ClearSysLogCommand(self::COMMAND_NAME);
+        $this->subject = new SeperateSyshistoryFromSyslogCommand(self::COMMAND_NAME);
         $application = new Application();
         $application->add($this->subject);
 
-        $command = $application->find('tmupgrade:clearsyslog');
+        $command = $application->find('tmupgrade:sepearate-syshistory-from-syslog');
         $this->commandTester = new CommandTester($command);
     }
 
@@ -50,14 +50,14 @@ final class ClearSysLogCommandTest extends FunctionalTestCase
     #[Test]
     public function hasDescription(): void
     {
-        $expected = 'Clear table sys_log.';
+        $expected = 'Seperate sys_history entries from sys_log.';
         self::assertSame($expected, $this->subject->getDescription());
     }
 
     #[Test]
     public function hasHelpText(): void
     {
-        $expected = 'This command execute an SQL script that clears the sys_log database table. -d days -l limit.';
+        $expected = 'This command execute an SQL script that seperates sys_history from sys_log table. -d days -l limit.';
         self::assertSame($expected, $this->subject->getHelp());
     }
 

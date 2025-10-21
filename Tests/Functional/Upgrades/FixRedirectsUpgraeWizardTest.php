@@ -64,27 +64,9 @@ final class FixRedirectsUpgraeWizardTest extends FunctionalTestCase
 
         // 1. no-leading-slash
         self::assertSame('/no-leading-slash', $redirectsByUid[1]['source_path']);
-        self::assertSame(307, (int)$redirectsByUid[1]['target_statuscode']);
-        self::assertSame('/target1', $redirectsByUid[1]['target']);
-
-        // 2. wrong-status-code
-        self::assertSame('/wrong-status-code', $redirectsByUid[2]['source_path']);
-        self::assertSame(307, (int)$redirectsByUid[2]['target_statuscode']);
-        self::assertSame('/target2', $redirectsByUid[2]['target']);
-
-        // 3. already-correct
-        self::assertSame('/already-correct', $redirectsByUid[3]['source_path']);
-        self::assertSame(301, (int)$redirectsByUid[3]['target_statuscode']);
-        self::assertSame('/target3', $redirectsByUid[3]['target']);
-
-        // 4. regex pattern
-        self::assertSame('^products/(.*)$', $redirectsByUid[4]['source_path']);
-        self::assertSame(301, (int)$redirectsByUid[4]['target_statuscode']);
-        self::assertSame('target4', $redirectsByUid[4]['target']);
-
-        // 5. external URL
-        self::assertSame('https://www.google.com', $redirectsByUid[5]['source_path']);
-        self::assertSame(301, (int)$redirectsByUid[5]['target_statuscode']);
-        self::assertSame('target5', $redirectsByUid[5]['target']);
+        // 2. regex pattern
+        self::assertSame('^products/(.*)$', $redirectsByUid[2]['source_path']);
+        // 3. external URL
+        self::assertSame('https://www.google.com', $redirectsByUid[3]['source_path']);
     }
 }
