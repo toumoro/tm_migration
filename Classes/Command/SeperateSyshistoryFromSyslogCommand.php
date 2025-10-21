@@ -14,23 +14,23 @@ use Toumoro\TmMigration\Service\SQLMigrationService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Class ClearSysLogCommand
+ * Class SeperateSyshistoryFromSyslogCommand
  */
 #[AsCommand(
-    name: 'tmupgrade:clearsyslog',
-    description: 'Clear table sys_log',
+    name: 'tmupgrade:sepearate-syshistory-from-syslog',
+    description: 'Seperate sys_history entries from sys_log.',
 )]
-final class ClearSysLogCommand extends Command
+final class SeperateSyshistoryFromSyslogCommand extends Command
 {
     private SymfonyStyle $io;
 
     protected function configure(): void
     {
         $this
-            ->setDescription('Clear table sys_log.')
+            ->setDescription('Seperate sys_history entries from sys_log.')
             ->addOption('limit', 'l', InputOption::VALUE_OPTIONAL, 'Limit')
             ->addOption('days', 'd', InputOption::VALUE_OPTIONAL, 'Days')
-            ->setHelp('This command execute an SQL script that clears the sys_log database table. -d days -l limit.');
+            ->setHelp('This command execute an SQL script that seperates sys_history from sys_log table. -d days -l limit.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -55,10 +55,11 @@ final class ClearSysLogCommand extends Command
         $condition = $SQLMigrationService->migrate([$statement]) > 0;
         if ($condition) {
             $success = Command::SUCCESS;
-            $this->io->info('sys_log clear executed with no errors.');
-        } else {
+            $this->io->info('seperate sys_history from sys_log command executed with no errors.');
+        }
+        else{
             $success = Command::FAILURE;
-            $this->io->info('sys_log clear failed to be executed.');
+            $this->io->info('seperate sys_history from sys_log command failed to be executed.');
         }
 
         return $success;

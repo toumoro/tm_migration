@@ -8,6 +8,7 @@ use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRect
 use Rector\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
+use Ssch\TYPO3Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
@@ -45,7 +46,16 @@ return RectorConfig::configure()
         // @see https://github.com/sabbelasichon/typo3-rector/issues/2536
         __DIR__ . '/**/Configuration/ExtensionBuilder/*',
         NameImportingPostRector::class => [
-            'ClassAliasMap.php',
+           'ClassAliasMap.php',
+        ],
+        // Exlclude non autoloaded classes from DI injection
+        // @see https://github.com/sabbelasichon/typo3-rector/issues/4604
+        GeneralUtilityMakeInstanceToConstructorPropertyRector::class => [
+            __DIR__ . '/packages/**/Domain/Model/*',
+            __DIR__ . '/packages/**/Hooks/*',
+            __DIR__ . '/packages/**/Hook/*',
+            __DIR__ . '/packages/**/UserFunc/*',
+            __DIR__ . '/packages/**/Userfunc/*',
         ],
     ])
 ;
