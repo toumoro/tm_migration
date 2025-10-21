@@ -10,9 +10,9 @@ $EM_CONF['tm_migration'] = [
     'version' => '13.4.6',
     'constraints' => [
         'depends' => [
-            'a9f/typo3-fractor' => '*',
-            'ssch/typo3-rector' => '*',
-            'wapplersystems/core-upgrader' => '*',
+            'a9f/typo3-fractor' => '0.5.0-0.9.0',
+            'ssch/typo3-rector' => '2.0.0-3.9.0',
+            'wapplersystems/core-upgrader' => 'dev-release/v12 || dev-release/v13',
         ],
         'conflicts' => [],
         'suggests' => [],

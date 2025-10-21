@@ -14,6 +14,9 @@
 	displayDetailsOnTestsThatTriggerWarnings="true"
 	displayDetailsOnPhpunitDeprecations="true"
 >
+	<extensions>
+		<bootstrap class="DG\BypassFinals\PHPUnitExtension"/>
+	</extensions>
 	<testsuites>
 		<testsuite name="Functional">
 			<directory>../../Tests/Functional/</directory>

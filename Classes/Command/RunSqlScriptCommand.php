@@ -89,17 +89,21 @@ final class RunSqlScriptCommand extends Command
     {
         $file = $input->getOption('file');
 
-        if (file_exists($file) && $file) {
+        if ($file && file_exists($file)) {
+
+            // If file path is already absolute, use it as-is
+            if (str_starts_with($file, '/')) {
+                return [$file];
+            }
+
             $fileName = Environment::getProjectPath() . '/' . $file;
 
-            return [
-                $fileName ?? self::FILE_NAME,
-            ];
+            return [$fileName ?? self::FILE_NAME];
         }
 
         $directory = $input->getOption('directory');
 
-        if (file_exists($directory) && $directory) {
+        if ($directory && file_exists($directory)) {
             $files = glob($directory . '/*.sql', GLOB_MARK);
 
             return $files;

@@ -31,13 +31,6 @@ abstract class ConfigurationUtility
         return $configuration['disableTruncateLogUpgradeWizard'] === '1';
     }
 
-    public static function getNumberOfDays(): string
-    {
-        $configuration = self::getExtensionConfiguration();
-
-        return $configuration['numberOfDays'] ?? '';
-    }
-
     public static function getUpgradeWizardToExclude(): array
     {
         $configuration = self::getExtensionConfiguration();

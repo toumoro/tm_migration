@@ -8,6 +8,7 @@ use Doctrine\DBAL\Exception as DBALException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Toumoro\TmMigration\Utility\ConfigurationUtility;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -25,6 +26,13 @@ final class TruncateLogTableUpgradeWizard implements UpgradeWizardInterface, Log
 
     private const LOG_TABLE = 'sys_log';
     private const DATE_FIELD = 'tstamp';
+
+    /**
+     * @param ExtensionConfiguration $extensionConfiguration
+     */
+    public function __construct(
+        private readonly ExtensionConfiguration $extensionConfiguration
+    ) {}
 
     /**
      * @return string Title of this updater
@@ -75,8 +83,10 @@ final class TruncateLogTableUpgradeWizard implements UpgradeWizardInterface, Log
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::LOG_TABLE);
         $queryBuilder->delete(self::LOG_TABLE);
 
-        if (ConfigurationUtility::getNumberOfDays()) {
-            $numberOfDays = ConfigurationUtility::getNumberOfDays();
+        $emConfiguration = $this->extensionConfiguration->get('tm_migration');
+
+        if ($emConfiguration['numberOfDays']) {
+            $numberOfDays = $emConfiguration['numberOfDays'];
             $deleteTimestamp = strtotime('-' . $numberOfDays . 'days');
 
             $queryBuilder->where(

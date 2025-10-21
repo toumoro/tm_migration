@@ -19,7 +19,7 @@ class SQLMigrationServiceTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $sqlFile = __DIR__ . '/../Fixtures/queries_to_migrate.sql';
+        $sqlFile = __DIR__ . '/../Fixtures/Database/queries.sql';
         $sqlContent = file_get_contents($sqlFile);
 
         if ($sqlContent === false) {

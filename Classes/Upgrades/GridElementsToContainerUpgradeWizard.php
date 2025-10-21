@@ -20,6 +20,10 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
 {
     private const TT_CONTENT_TABLE = 'tt_content';
 
+    public function __construct(
+        private readonly ConnectionPool $connectionPool
+    ) {}
+
     /**
      * @inheritDoc
      */
@@ -41,7 +45,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
      */
     public function updateNecessary(): bool
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TT_CONTENT_TABLE);
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TT_CONTENT_TABLE);
         return (bool)$queryBuilder->count('uid')
             ->from(self::TT_CONTENT_TABLE)
             ->where(
@@ -66,7 +70,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
      */
     public function executeUpdate(): bool
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TT_CONTENT_TABLE);
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TT_CONTENT_TABLE);
         $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
 
         $result = $queryBuilder->select('*')
@@ -89,7 +93,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
 
     protected function updateContainer(int $uid, string $identifier, ?string $flexForm): void
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TT_CONTENT_TABLE);
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TT_CONTENT_TABLE);
         $queryBuilder->update(self::TT_CONTENT_TABLE)
             ->set('CType', $identifier)
             ->where(
@@ -103,7 +107,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
 
     protected function updateChildren(int $uid): void
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TT_CONTENT_TABLE);
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TT_CONTENT_TABLE);
         $result = $queryBuilder->select('*')
             ->from(self::TT_CONTENT_TABLE)
             ->where(
@@ -124,7 +128,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
 
     protected function updateChild(int $uid, int $parent, int $colPos): void
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TT_CONTENT_TABLE);
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TT_CONTENT_TABLE);
         $queryBuilder->update(self::TT_CONTENT_TABLE)
             ->set('tx_container_parent', $parent)
             ->set('colPos', (100 + $colPos))

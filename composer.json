@@ -20,18 +20,20 @@
         }
     ],
     "require": {
-        "php": "^8.1 || ^8.2",
+        "php": ">= 8.1 < 8.5",
         "typo3/cms-core": "^12.4.0 || ^13.4.0",
         "a9f/typo3-fractor": "^v0.5.1",
         "ssch/typo3-rector": "^2.14.4 || ^v3.5.0",
-        "wapplersystems/core-upgrader": "dev-release/v12 || dev-release/v13"
+        "wapplersystems/core-upgrader": "dev-release/v12 || dev-release/v13",
+        "typo3/cms-redirects": "^13.4"
     },
      "require-dev": {
         "phpstan/phpdoc-parser": "^2.2.0",
         "typo3/testing-framework": "^9.2.0",
         "phpunit/phpunit": "^11.5.33",
         "typo3/coding-standards": "^0.8.0",
-        "friendsofphp/php-cs-fixer": "^3.86.0"
+        "friendsofphp/php-cs-fixer": "^3.86.0",
+        "dg/bypass-finals": "^1.9"
     },
     "autoload": {
         "psr-4": {
@@ -62,6 +64,7 @@
             "git config --local core.hooksPath .githooks/"
         ],
         "php:cs": "php-cs-fixer fix --config=Build/php-cs-fixer/php-cs-fixer.php -v --dry-run --using-cache no --diff",
+        "php:unit": "phpunit -c Build/phpunit/UnitTests.xml",
         "php:fix": "php-cs-fixer fix --config=Build/php-cs-fixer/php-cs-fixer.php"
     },
     "extra": {
@@ -69,5 +72,5 @@
             "extension-key": "tm_migration",
             "web-dir": ".Build/Web"
         }
-    }    
+    }
 }

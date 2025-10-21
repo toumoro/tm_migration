@@ -1,0 +1,7 @@
+"sys_log"
+,"uid","tstamp","details"
+,1,1723500000,"Old log entry — older than 90 days (should be deleted)"
+,2,1726000000,"Log entry — around 60 days old (should be deleted if threshold < 60)"
+,3,1728500000,"Recent log entry — 30 days old (should be kept)"
+,4,1730400000,"New entry — within the last week (should be kept)"
+,5,1710000000,"Very old log entry — over 200 days old (should be deleted)"
