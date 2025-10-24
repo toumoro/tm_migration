@@ -6,7 +6,7 @@ namespace Toumoro\TmMigration\Upgrades;
 
 use Toumoro\TmMigration\Updates\AbstractListTypeToCTypeUpdate;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 
 /**
@@ -15,8 +15,15 @@ use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 #[UpgradeWizard('tmMigration_cTypeToListTypeUpgradeWizard')]
 final class CTypeToListTypeUpgradeWizard extends AbstractListTypeToCTypeUpdate
 {
-
     private const MAPPING_ARRAY = 'cTypeToListTypeMappingArray';
+    private const DEFAULT_MAPPING_ARRAY = [ 'pi_plugin1' => 'new_content_element1' ];
+
+    public function __construct(
+        private readonly ConnectionPool $connectionPool,
+        private readonly ExtensionConfiguration $extensionConfiguration
+    ) {
+        parent::__construct($this->connectionPool);
+    }
 
     public function getTitle(): string
     {
@@ -41,13 +48,10 @@ final class CTypeToListTypeUpgradeWizard extends AbstractListTypeToCTypeUpdate
      * @return array<string, string>
      */
     protected function getListTypeToCTypeMapping(): array
-    {   
-        /** @var ExtensionConfiguration $extensionConfiguration */
-        $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+    {
+        $emConfiguration = $this->extensionConfiguration->get('tm_migration');
 
-        $emConfiguration = $extensionConfiguration->get('tm_migration');
-
-        if(isset($emConfiguration[self::MAPPING_ARRAY])) {
+        if (isset($emConfiguration[self::MAPPING_ARRAY])) {
             $tmpArray = explode(',', $emConfiguration[self::MAPPING_ARRAY]);
 
             foreach ($tmpArray as $item) {
@@ -59,6 +63,6 @@ final class CTypeToListTypeUpgradeWizard extends AbstractListTypeToCTypeUpdate
             return $cTypeListTypeMappingArray;
         }
 
-        return [];
+        return self::DEFAULT_MAPPING_ARRAY;
     }
 }

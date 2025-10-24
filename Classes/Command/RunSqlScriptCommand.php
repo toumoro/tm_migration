@@ -6,13 +6,13 @@ namespace Toumoro\TmMigration\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
-use TYPO3\CMS\Core\Core\Environment;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Toumoro\TmMigration\Service\SQLMigrationService;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Toumoro\TmMigration\Service\SqlMigrationService;
 
 /**
  * Class RunSqlScriptCommand
@@ -49,12 +49,12 @@ final class RunSqlScriptCommand extends Command
 
         $fileNames = $this->getFileNames($input);
 
-        if(!empty($fileNames)) {
+        if (!empty($fileNames)) {
             foreach ($fileNames as $fileName) {
                 $content = file_get_contents($fileName);
 
                 // check if the file is not empty
-                if($content) {
+                if ($content) {
 
                     $queries = array_filter(
                         array_map(
@@ -63,18 +63,16 @@ final class RunSqlScriptCommand extends Command
                         )
                     );
 
-                    $sqlMigrationService = GeneralUtility::makeInstance(SqlMigrationService::class);
-                    $condition = $sqlMigrationService->migrate($queries) > 0;
-                    if($condition) {
+                    $SQLMigrationService = GeneralUtility::makeInstance(SQLMigrationService::class);
+                    $condition = $SQLMigrationService->migrate($queries) > 0;
+                    if ($condition) {
                         $success = Command::SUCCESS;
                         $this->io->info($fileName . ' executed with no errors.');
-                    }
-                    else {
+                    } else {
                         $success = Command::FAILURE;
                         $this->io->info($fileName . ' failed to be executed.');
-                    } 
-                } 
-                else {
+                    }
+                } else {
                     $success = Command::FAILURE;
                     $this->io->info($fileName . ' is empty.');
                 }
@@ -83,7 +81,7 @@ final class RunSqlScriptCommand extends Command
             $success = Command::FAILURE;
             $this->io->info('no sql file found !');
         }
-        
+
         return $success;
     }
 
@@ -91,19 +89,23 @@ final class RunSqlScriptCommand extends Command
     {
         $file = $input->getOption('file');
 
-        if(file_exists($file) && $file) {
+        if ($file && file_exists($file)) {
+
+            // If file path is already absolute, use it as-is
+            if (str_starts_with($file, '/')) {
+                return [$file];
+            }
+
             $fileName = Environment::getProjectPath() . '/' . $file;
-            
-            return [
-                $fileName ?? self::FILE_NAME
-            ];
+
+            return [$fileName ?? self::FILE_NAME];
         }
 
         $directory = $input->getOption('directory');
-        
-        if(file_exists($directory) && $directory) {
+
+        if ($directory && file_exists($directory)) {
             $files = glob($directory . '/*.sql', GLOB_MARK);
-            
+
             return $files;
         }
 
