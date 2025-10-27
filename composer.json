@@ -21,11 +21,11 @@
     ],
     "require": {
         "php": ">= 8.1 < 8.5",
-        "typo3/cms-core": "^12.4.0 || ^13.4.0",
+        "typo3/cms-core": "^12.4 || ^13.4",
         "a9f/typo3-fractor": "^v0.5.1",
         "ssch/typo3-rector": "^2.14.4 || ^v3.5.0",
         "wapplersystems/core-upgrader": "dev-release/v12 || dev-release/v13",
-        "typo3/cms-redirects": "^13.4"
+        "typo3/cms-redirects": "^12.4 || ^13.4"
     },
      "require-dev": {
         "phpstan/phpdoc-parser": "^2.2.0",
