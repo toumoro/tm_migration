@@ -8,9 +8,9 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Toumoro\TmMigration\Upgrades\TruncateLogTableUpgradeWizard;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 
 final class TruncateLogTableUpgradeWizardTest extends FunctionalTestCase
 {
@@ -28,7 +28,7 @@ final class TruncateLogTableUpgradeWizardTest extends FunctionalTestCase
         GeneralUtility::addInstance(ExtensionConfiguration::class, $this->extensionConfigurationMock);
 
         $this->connectionPool = $this->getContainer()->get(ConnectionPool::class);
-        $this->subject = new TruncateLogTableUpgradeWizard($this->extensionConfigurationMock,$this->connectionPool);
+        $this->subject = new TruncateLogTableUpgradeWizard($this->extensionConfigurationMock, $this->connectionPool);
 
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/sys_log.csv');
     }
