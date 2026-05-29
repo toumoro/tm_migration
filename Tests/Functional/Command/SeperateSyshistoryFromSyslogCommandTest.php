@@ -62,7 +62,7 @@ final class SeperateSyshistoryFromSyslogCommandTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function testExecuteSuccess()
+    public function testExecuteSuccess(): void
     {
         $this->mockSQLService
             ->expects(self::once())
@@ -80,7 +80,7 @@ final class SeperateSyshistoryFromSyslogCommandTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function testExecuteFailure()
+    public function testExecuteFailure(): void
     {
         $this->mockSQLService
             ->expects(self::once())
@@ -92,7 +92,7 @@ final class SeperateSyshistoryFromSyslogCommandTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function testSqlContainsLimitAndTimestamp()
+    public function testSqlContainsLimitAndTimestamp(): void
     {
         $days = 3;
         $limit = 50;

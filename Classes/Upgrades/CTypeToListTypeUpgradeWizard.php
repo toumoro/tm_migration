@@ -7,12 +7,11 @@ namespace Toumoro\TmMigration\Upgrades;
 use Toumoro\TmMigration\Updates\AbstractListTypeToCTypeUpdate;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 
 /**
  * Class CTypeToListTypeUpgradeWizard
  */
-#[UpgradeWizard('tmMigration_cTypeToListTypeUpgradeWizard')]
+#[\TYPO3\CMS\Core\Attribute\UpgradeWizard('tmMigration_cTypeToListTypeUpgradeWizard')]
 final class CTypeToListTypeUpgradeWizard extends AbstractListTypeToCTypeUpdate
 {
     private const MAPPING_ARRAY = 'cTypeToListTypeMappingArray';

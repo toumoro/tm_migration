@@ -15,23 +15,19 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Toumoro\TmMigration\Utility\ConfigurationUtility;
 use Toumoro\TmMigration\Utility\UpgardeWizardsMappingUtility;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
+use TYPO3\CMS\Core\Command\Exception\WizardDoesNotNeedToMakeChangesException;
+use TYPO3\CMS\Core\Command\Exception\WizardMarkedAsDoneException;
+use TYPO3\CMS\Core\Command\Exception\WizardNotFoundException;
 use TYPO3\CMS\Core\Configuration\Exception\SettingsWriteException;
 use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Service\DatabaseUpgradeWizardsService;
+use TYPO3\CMS\Core\Service\Exception\SilentConfigurationUpgradeReadonlyException;
+use TYPO3\CMS\Core\Service\SilentConfigurationUpgradeService;
+use TYPO3\CMS\Core\Service\UpgradeWizardsService;
+use TYPO3\CMS\Core\Upgrades\PrerequisiteCollection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Command\Exception\WizardDoesNotNeedToMakeChangesException;
-use TYPO3\CMS\Install\Command\Exception\WizardMarkedAsDoneException;
-use TYPO3\CMS\Install\Command\Exception\WizardNotFoundException;
-use TYPO3\CMS\Install\Service\DatabaseUpgradeWizardsService;
 use TYPO3\CMS\Install\Service\Exception\ConfigurationChangedException;
-use TYPO3\CMS\Install\Service\Exception\SilentConfigurationUpgradeReadonlyException;
 use TYPO3\CMS\Install\Service\LateBootService;
-use TYPO3\CMS\Install\Service\SilentConfigurationUpgradeService;
-use TYPO3\CMS\Install\Service\UpgradeWizardsService;
-use TYPO3\CMS\Install\Updates\ChattyInterface;
-use TYPO3\CMS\Install\Updates\ConfirmableInterface;
-use TYPO3\CMS\Install\Updates\PrerequisiteCollection;
-use TYPO3\CMS\Install\Updates\RepeatableInterface;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 /**
  * Upgrade wizard command for running wizards
@@ -103,7 +99,7 @@ final class UpgradeWizardRunCommand extends Command
     /**
      * Configure the command by defining the name, options and arguments
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Run upgrade wizard. Without arguments all available wizards will be run.')
             ->addArgument(
@@ -150,7 +146,7 @@ final class UpgradeWizardRunCommand extends Command
      * Get Wizard instance by class name and identifier
      * Returns null if wizard is already done
      */
-    protected function getWizard(string $identifier): UpgradeWizardInterface
+    protected function getWizard(string $identifier): \TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface
     {
         // already done
         if ($this->upgradeWizardsService->isWizardDone($identifier)) {
@@ -167,14 +163,14 @@ final class UpgradeWizardRunCommand extends Command
             );
         }
 
-        if ($wizard instanceof ChattyInterface) {
+        if ($wizard instanceof \TYPO3\CMS\Core\Upgrades\ChattyInterface) {
             $wizard->setOutput($this->output);
         }
         if ($wizard->updateNecessary()) {
             return $wizard;
         }
 
-        if (!($wizard instanceof RepeatableInterface)) {
+        if (!($wizard instanceof \TYPO3\CMS\Core\Upgrades\RepeatableInterface)) {
             $this->upgradeWizardsService->markWizardAsDone($wizard);
             throw new WizardMarkedAsDoneException(
                 sprintf('Wizard %s does not need to make changes. Marking wizard as done.', $identifier),
@@ -194,7 +190,7 @@ final class UpgradeWizardRunCommand extends Command
      * At the moment the install tool automatically displays the database updates when necessary but can't do more
      * prerequisites
      *
-     * @param UpgradeWizardInterface[] $instances
+     * @param \TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface[] $instances
      */
     protected function handlePrerequisites(array $instances): bool
     {
@@ -206,7 +202,7 @@ final class UpgradeWizardRunCommand extends Command
         }
         $result = true;
         foreach ($prerequisites as $prerequisite) {
-            if ($prerequisite instanceof ChattyInterface) {
+            if ($prerequisite instanceof \TYPO3\CMS\Core\Upgrades\ChattyInterface) {
                 $prerequisite->setOutput($this->output);
             }
             if (!$prerequisite->isFulfilled()) {
@@ -228,10 +224,10 @@ final class UpgradeWizardRunCommand extends Command
     }
 
     protected function runSingleWizard(
-        UpgradeWizardInterface $instance
+        \TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface $instance
     ): int {
         $this->output->title('Running Wizard "' . $instance->getTitle() . '"');
-        if ($instance instanceof ConfirmableInterface) {
+        if ($instance instanceof \TYPO3\CMS\Core\Upgrades\ConfirmableInterface) {
             $confirmation = $instance->getConfirmation();
             $defaultString = $confirmation->getDefaultValue() ? 'Y/n' : 'y/N';
             $question = new ConfirmationQuestion(
@@ -252,7 +248,7 @@ final class UpgradeWizardRunCommand extends Command
                     $this->output->error('You have to acknowledge this wizard to continue');
                     return Command::FAILURE;
                 }
-                if ($instance instanceof RepeatableInterface) {
+                if ($instance instanceof \TYPO3\CMS\Core\Upgrades\RepeatableInterface) {
                     $this->output->note('No changes applied.');
                 } else {
                     $this->upgradeWizardsService->markWizardAsDone($instance);
@@ -263,7 +259,7 @@ final class UpgradeWizardRunCommand extends Command
         }
         if ($instance->executeUpdate()) {
             $this->output->success('Successfully ran wizard ' . $instance->getTitle());
-            if (!$instance instanceof RepeatableInterface) {
+            if (!$instance instanceof \TYPO3\CMS\Core\Upgrades\RepeatableInterface) {
                 $this->upgradeWizardsService->markWizardAsDone($instance);
             }
             return Command::SUCCESS;

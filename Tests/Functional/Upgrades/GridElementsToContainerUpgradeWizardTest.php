@@ -13,7 +13,6 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\QueryRestrictionContainerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 final class GridElementsToContainerUpgradeWizardTest extends TestCase
 {
@@ -48,7 +47,7 @@ final class GridElementsToContainerUpgradeWizardTest extends TestCase
     #[Test]
     public function isUpgradeWizard(): void
     {
-        self::assertInstanceOf(UpgradeWizardInterface::class, $this->subject);
+        self::assertInstanceOf(\TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface::class, $this->subject);
     }
 
     #[Test]

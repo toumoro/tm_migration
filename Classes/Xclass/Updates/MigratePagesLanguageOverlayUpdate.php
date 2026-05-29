@@ -5,19 +5,18 @@ declare(strict_types=1);
 namespace Toumoro\TmMigration\Xclass\Updates;
 
 use Doctrine\DBAL\ParameterType;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Service\LoadTcaService;
-use TYPO3\CMS\v95\Install\Updates\MigratePagesLanguageOverlayUpdate as BaseMigratePagesLanguageOverlayUpdate;
+use TYPO3\CMS\v95\Core\Upgrades\MigratePagesLanguageOverlayUpdate as BaseMigratePagesLanguageOverlayUpdate;
 
 /**
  * Merge pages_language_overlay rows into pages table
  * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
-#[UpgradeWizard('pagesLanguageOverlay')]
+#[\TYPO3\CMS\Core\Attribute\UpgradeWizard('pagesLanguageOverlay')]
 class MigratePagesLanguageOverlayUpdate extends BaseMigratePagesLanguageOverlayUpdate
 {
+    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool) {}
     /**
      * Performs the update.
      *
@@ -50,7 +49,7 @@ class MigratePagesLanguageOverlayUpdate extends BaseMigratePagesLanguageOverlayU
 
     protected function updateFalFileReferences(): void
     {
-        $translatedPagesQueryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $translatedPagesQueryBuilder = $this->connectionPool->getQueryBuilderForTable('pages');
         $translatedPagesQueryBuilder->getRestrictions()->removeAll();
         $translatedPagesRows = $translatedPagesQueryBuilder
             ->select('uid', 'legacy_overlay_uid')
@@ -64,7 +63,7 @@ class MigratePagesLanguageOverlayUpdate extends BaseMigratePagesLanguageOverlayU
             ->executeQuery();
 
         while ($translatedPageRow = $translatedPagesRows->fetchAssociative()) {
-            $sysFileRefQueryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_file_reference');
+            $sysFileRefQueryBuilder = $this->connectionPool->getQueryBuilderForTable('sys_file_reference');
             $sysFileRefQueryBuilder->getRestrictions()->removeAll();
             $references = $sysFileRefQueryBuilder
                 ->select('*')
@@ -87,7 +86,7 @@ class MigratePagesLanguageOverlayUpdate extends BaseMigratePagesLanguageOverlayU
                 $ref['uid'] = null; // pour qu'un nouvel ID soit généré
                 $ref['uid_foreign'] = $translatedPageRow['uid'];
                 $ref['tablenames'] = 'pages';
-                $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('sys_file_reference');
+                $connection = $this->connectionPool->getConnectionForTable('sys_file_reference');
                 $connection->insert('sys_file_reference', $ref);
             }
         }

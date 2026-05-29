@@ -21,8 +21,6 @@ use Doctrine\DBAL\Schema\Column;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 /**
  * This class can be extended by 3rd party extensions to easily add a custom
@@ -32,7 +30,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  *
  * @since 13.4
  */
-abstract class AbstractListTypeToCTypeUpdate implements UpgradeWizardInterface
+abstract class AbstractListTypeToCTypeUpdate implements \TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface
 {
     protected const TABLE_CONTENT = 'tt_content';
     protected const TABLE_BACKEND_USER_GROUPS = 'be_groups';
@@ -63,7 +61,7 @@ abstract class AbstractListTypeToCTypeUpdate implements UpgradeWizardInterface
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class,
+            \TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite::class,
         ];
     }
 

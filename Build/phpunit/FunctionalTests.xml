@@ -1,19 +1,5 @@
-<phpunit
-	backupGlobals="true"
-	bootstrap="FunctionalTestsBootstrap.php"
-	colors="true"
-	stopOnError="false"
-	stopOnFailure="false"
-	stopOnIncomplete="false"
-	stopOnSkipped="false"
-	testdox="true"
-	beStrictAboutTestsThatDoNotTestAnything="false"
-	displayDetailsOnTestsThatTriggerDeprecations="true"
-	displayDetailsOnTestsThatTriggerErrors="true"
-	displayDetailsOnTestsThatTriggerNotices="true"
-	displayDetailsOnTestsThatTriggerWarnings="true"
-	displayDetailsOnPhpunitDeprecations="true"
->
+<?xml version="1.0"?>
+<phpunit backupGlobals="true" bootstrap="FunctionalTestsBootstrap.php" colors="true" stopOnError="false" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" testdox="true" beStrictAboutTestsThatDoNotTestAnything="false" displayDetailsOnTestsThatTriggerDeprecations="true" displayDetailsOnTestsThatTriggerErrors="true" displayDetailsOnTestsThatTriggerNotices="true" displayDetailsOnTestsThatTriggerWarnings="true" displayDetailsOnPhpunitDeprecations="true">
 	<extensions>
 		<bootstrap class="DG\BypassFinals\PHPUnitExtension"/>
 	</extensions>

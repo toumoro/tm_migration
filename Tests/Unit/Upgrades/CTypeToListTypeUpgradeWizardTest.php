@@ -9,7 +9,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Toumoro\TmMigration\Upgrades\CTypeToListTypeUpgradeWizard;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 final class CTypeToListTypeUpgradeWizardTest extends UnitTestCase
@@ -34,7 +33,7 @@ final class CTypeToListTypeUpgradeWizardTest extends UnitTestCase
     #[Test]
     public function isUpgradeWizard(): void
     {
-        self::assertInstanceOf(UpgradeWizardInterface::class, $this->subject);
+        self::assertInstanceOf(\TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface::class, $this->subject);
     }
 
     #[Test]

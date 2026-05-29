@@ -8,8 +8,8 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Toumoro\TmMigration\Upgrades\TruncateLogTableUpgradeWizard;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 final class TruncateLogTableUpgradeWizardTest extends FunctionalTestCase
@@ -18,6 +18,7 @@ final class TruncateLogTableUpgradeWizardTest extends FunctionalTestCase
     private TruncateLogTableUpgradeWizard $subject;
 
     private ExtensionConfiguration&MockObject $extensionConfigurationMock;
+    private ConnectionPool $connectionPool;
 
     protected function setUp(): void
     {
@@ -26,7 +27,8 @@ final class TruncateLogTableUpgradeWizardTest extends FunctionalTestCase
         $this->extensionConfigurationMock = $this->createMock(ExtensionConfiguration::class);
         GeneralUtility::addInstance(ExtensionConfiguration::class, $this->extensionConfigurationMock);
 
-        $this->subject = new TruncateLogTableUpgradeWizard($this->extensionConfigurationMock);
+        $this->connectionPool = $this->getContainer()->get(ConnectionPool::class);
+        $this->subject = new TruncateLogTableUpgradeWizard($this->extensionConfigurationMock, $this->connectionPool);
 
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/sys_log.csv');
     }
@@ -34,7 +36,7 @@ final class TruncateLogTableUpgradeWizardTest extends FunctionalTestCase
     #[Test]
     public function isUpgradeWizard(): void
     {
-        self::assertInstanceOf(UpgradeWizardInterface::class, $this->subject);
+        self::assertInstanceOf(\TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface::class, $this->subject);
     }
 
     #[Test]
@@ -59,8 +61,7 @@ final class TruncateLogTableUpgradeWizardTest extends FunctionalTestCase
             ->with('tm_migration')
             ->willReturn(['disableTruncateLogUpgradeWizard' => '1']);
 
-        $wizard = new TruncateLogTableUpgradeWizard($this->extensionConfigurationMock);
-        self::assertFalse($wizard->updateNecessary());
+        self::assertFalse($this->subject->updateNecessary());
     }
 
     #[Test]
@@ -71,8 +72,7 @@ final class TruncateLogTableUpgradeWizardTest extends FunctionalTestCase
             ->with('tm_migration')
             ->willReturn(['disableTruncateLogUpgradeWizard' => '0']);
 
-        $wizard = new TruncateLogTableUpgradeWizard($this->extensionConfigurationMock);
-        self::assertTrue($wizard->updateNecessary());
+        self::assertTrue($this->subject->updateNecessary());
     }
 
     #[Test]
@@ -86,8 +86,7 @@ final class TruncateLogTableUpgradeWizardTest extends FunctionalTestCase
                 'numberOfDays' => '40',
             ]);
 
-        $wizard = new TruncateLogTableUpgradeWizard($this->extensionConfigurationMock);
-        $result = $wizard->executeUpdate();
+        $result = $this->subject->executeUpdate();
 
         self::assertTrue($result);
 

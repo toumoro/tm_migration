@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Toumoro\TmMigration\Xclass\Updates;
 
-use TYPO3\CMS\v76\Install\Updates\WorkspacesNotificationSettingsUpdate as BaseWorkspacesNotificationSettingsUpdate;
+use TYPO3\CMS\v76\Core\Upgrades\WorkspacesNotificationSettingsUpdate as BaseWorkspacesNotificationSettingsUpdate;
 
 class WorkspacesNotificationSettingsUpdate extends BaseWorkspacesNotificationSettingsUpdate
 {

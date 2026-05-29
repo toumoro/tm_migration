@@ -2,7 +2,7 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
-    public: false
+    public: true
 
   Toumoro\TmMigration\:
     resource: '../Classes/*'
@@ -36,3 +36,6 @@ services:
       - name: console.command
         command: 'tmupgrade:run'
         description: 'This command runs upgrade wizards.'
+
+  Toumoro\TmMigration\Service\SQLMigrationService:
+    public: true
