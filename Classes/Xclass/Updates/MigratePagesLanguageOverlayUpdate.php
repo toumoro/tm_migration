@@ -7,7 +7,7 @@ namespace Toumoro\TmMigration\Xclass\Updates;
 use Doctrine\DBAL\ParameterType;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Service\LoadTcaService;
-use TYPO3\CMS\v95\Install\Updates\MigratePagesLanguageOverlayUpdate as BaseMigratePagesLanguageOverlayUpdate;
+use TYPO3\CMS\v95\Core\Upgrades\MigratePagesLanguageOverlayUpdate as BaseMigratePagesLanguageOverlayUpdate;
 
 /**
  * Merge pages_language_overlay rows into pages table
