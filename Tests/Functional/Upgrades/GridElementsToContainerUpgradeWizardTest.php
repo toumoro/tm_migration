@@ -48,7 +48,7 @@ final class GridElementsToContainerUpgradeWizardTest extends TestCase
     #[Test]
     public function isUpgradeWizard(): void
     {
-        self::assertInstanceOf(UpgradeWizardInterface::class, $this->subject);
+        self::assertInstanceOf(\TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface::class, $this->subject);
     }
 
     #[Test]

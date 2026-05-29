@@ -17,13 +17,16 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 /**
  * Class TruncateLogTableUpgradeWizard
  */
-#[UpgradeWizard('tmMigration_fixRedirectsUpgraeWizard')]
-final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAwareInterface
+#[\TYPO3\CMS\Core\Attribute\UpgradeWizard('tmMigration_fixRedirectsUpgraeWizard')]
+final class FixRedirectsUpgraeWizard implements \TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
     private const REDIRECT_TABLE = 'sys_redirect';
     private const DEFAULT_STATUS_CODE = 301;
+    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool)
+    {
+    }
 
     /**
      * @return string Title of this updater
@@ -65,7 +68,7 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class,
+            \TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite::class,
         ];
     }
 
@@ -108,7 +111,7 @@ final class FixRedirectsUpgraeWizard implements UpgradeWizardInterface, LoggerAw
 
     private function getTableConnection(): QueryBuilder
     {
-        return GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::REDIRECT_TABLE);
+        return $this->connectionPool->getQueryBuilderForTable(self::REDIRECT_TABLE);
     }
 
     private function getBrokenRedirects(): array

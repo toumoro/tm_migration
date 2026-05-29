@@ -15,8 +15,8 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 /**
  * Class GridElementsToContainerUpgradeWizard
  */
-#[UpgradeWizard('tmMigration_gridelementsToContainerUpgradeWizard')]
-class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
+#[\TYPO3\CMS\Core\Attribute\UpgradeWizard('tmMigration_gridelementsToContainerUpgradeWizard')]
+class GridElementsToContainerUpgradeWizard implements \TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface
 {
     private const TT_CONTENT_TABLE = 'tt_content';
 
@@ -61,7 +61,7 @@ class GridElementsToContainerUpgradeWizard implements UpgradeWizardInterface
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class,
+            \TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite::class,
         ];
     }
 

@@ -32,7 +32,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  *
  * @since 13.4
  */
-abstract class AbstractListTypeToCTypeUpdate implements UpgradeWizardInterface
+abstract class AbstractListTypeToCTypeUpdate implements \TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface
 {
     protected const TABLE_CONTENT = 'tt_content';
     protected const TABLE_BACKEND_USER_GROUPS = 'be_groups';
@@ -63,7 +63,7 @@ abstract class AbstractListTypeToCTypeUpdate implements UpgradeWizardInterface
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class,
+            \TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite::class,
         ];
     }
 

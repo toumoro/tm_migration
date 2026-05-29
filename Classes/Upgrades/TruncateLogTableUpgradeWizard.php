@@ -19,8 +19,8 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 /**
  * Class TruncateLogTableUpgradeWizard
  */
-#[UpgradeWizard('tmMigration_trucateLogTableUpgradeWizard')]
-final class TruncateLogTableUpgradeWizard implements UpgradeWizardInterface, LoggerAwareInterface
+#[\TYPO3\CMS\Core\Attribute\UpgradeWizard('tmMigration_trucateLogTableUpgradeWizard')]
+final class TruncateLogTableUpgradeWizard implements \TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
@@ -31,7 +31,7 @@ final class TruncateLogTableUpgradeWizard implements UpgradeWizardInterface, Log
      * @param ExtensionConfiguration $extensionConfiguration
      */
     public function __construct(
-        private readonly ExtensionConfiguration $extensionConfiguration
+        private readonly ExtensionConfiguration $extensionConfiguration, private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool
     ) {}
 
     /**
@@ -74,13 +74,13 @@ final class TruncateLogTableUpgradeWizard implements UpgradeWizardInterface, Log
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class,
+            \TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite::class,
         ];
     }
 
     private function deleteLogTable(): bool
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::LOG_TABLE);
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::LOG_TABLE);
         $queryBuilder->delete(self::LOG_TABLE);
 
         $emConfiguration = $this->extensionConfiguration->get('tm_migration');

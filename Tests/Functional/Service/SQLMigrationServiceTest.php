@@ -23,7 +23,7 @@ class SQLMigrationServiceTest extends FunctionalTestCase
         $sqlContent = file_get_contents($sqlFile);
 
         if ($sqlContent === false) {
-            throw new FileNotFoundException('SQL fixture file not found or could not be read.');
+            throw new FileNotFoundException('SQL fixture file not found or could not be read.', 9474697292);
         }
 
         $this->queries = array_filter(array_map('trim', explode(';', $sqlContent)));
