@@ -12,7 +12,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.4'
 
       - name: Cache Composer packages
         id: composer-cache
@@ -34,4 +34,4 @@ jobs:
       - name: functional tests
         run: |
           chmod +x ./Build/Scripts/runTests.sh
-          RUNTESTS_DIR_BIN=.Build/bin/ ./Build/Scripts/runTests.sh -p 8.3 -d mysql
+          RUNTESTS_DIR_BIN=.Build/bin/ ./Build/Scripts/runTests.sh -p 8.4 -d mysql

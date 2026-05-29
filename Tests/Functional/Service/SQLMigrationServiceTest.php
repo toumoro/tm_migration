@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Toumoro\TmMigration\Tests\Unit\Service;
+namespace Toumoro\TmMigration\Tests\Functional\Service;
 
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Toumoro\TmMigration\Service\SQLMigrationService;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class SQLMigrationServiceTest extends FunctionalTestCase
@@ -32,13 +32,14 @@ class SQLMigrationServiceTest extends FunctionalTestCase
     #[Test]
     public function checkSqlQueriesMigration(): void
     {
-        $service = GeneralUtility::makeInstance(SQLMigrationService::class);
+        $connectionPool = $this->getContainer()->get(ConnectionPool::class);
+        $connection = $connectionPool->getConnectionByName('Default');
+
+        $logManager = $this->getContainer()->get(LogManager::class);
+        $service = new SQLMigrationService($connectionPool, $logManager);
         $executedCount = $service->migrate($this->queries);
 
         self::assertSame(count($this->queries), $executedCount, 'All SQL queries should be executed.');
-
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
-            ->getConnectionByName('Default');
 
         $result = $connection->fetchOne('SELECT COUNT(*) FROM tx_tmexample_table');
         self::assertGreaterThan(0, $result, 'Data should be inserted into tx_tmexample_table');

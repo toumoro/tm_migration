@@ -6,18 +6,21 @@ namespace Toumoro\TmMigration\Tests\Functional\Upgrades;
 
 use PHPUnit\Framework\Attributes\Test;
 use Toumoro\TmMigration\Upgrades\FixRedirectsUpgraeWizard;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 final class FixRedirectsUpgraeWizardTest extends FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = ['redirects'];
     private FixRedirectsUpgraeWizard $subject;
+    protected ConnectionPool $connectionPool;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->subject = new FixRedirectsUpgraeWizard();
+        $this->connectionPool = $this->getContainer()->get(ConnectionPool::class);
+        $this->subject = new FixRedirectsUpgraeWizard($this->connectionPool);
 
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/sys_redirect.csv');
     }
@@ -45,10 +48,8 @@ final class FixRedirectsUpgraeWizardTest extends FunctionalTestCase
     #[Test]
     public function testWizardRepairsInvalidRedirects(): void
     {
-        $wizard = new FixRedirectsUpgraeWizard();
-
-        self::assertTrue($wizard->updateNecessary());
-        $wizard->executeUpdate();
+        self::assertTrue($this->subject->updateNecessary());
+        $this->subject->executeUpdate();
 
         $connection = $this->getConnectionPool()->getConnectionForTable('sys_redirect');
         $redirects = $connection->select(
@@ -62,10 +63,10 @@ final class FixRedirectsUpgraeWizardTest extends FunctionalTestCase
         }
 
         // 1. no-leading-slash
-        self::assertSame('/no-leading-slash', $redirectsByUid[1]['source_path']);
+        self::assertSame('/no-leading-slash', $redirectsByUid[1]['source_path'], 'UID 1 source_path mismatch');
         // 2. regex pattern
-        self::assertSame('^products/(.*)$', $redirectsByUid[2]['source_path']);
+        self::assertSame('^products/(.*)$', $redirectsByUid[2]['source_path'], 'UID 2 source_path mismatch');
         // 3. external URL
-        self::assertSame('https://www.google.com', $redirectsByUid[3]['source_path']);
+        self::assertSame('https://www.google.com', $redirectsByUid[3]['source_path'], 'UID 3 source_path mismatch');
     }
 }

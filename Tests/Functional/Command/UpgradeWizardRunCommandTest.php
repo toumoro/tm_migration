@@ -10,10 +10,10 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Toumoro\TmMigration\Command\UpgradeWizardRunCommand;
-use TYPO3\CMS\Install\Service\DatabaseUpgradeWizardsService;
+use TYPO3\CMS\Core\Service\DatabaseUpgradeWizardsService;
 use TYPO3\CMS\Install\Service\LateBootService;
-use TYPO3\CMS\Install\Service\SilentConfigurationUpgradeService;
-use TYPO3\CMS\Install\Service\UpgradeWizardsService;
+use TYPO3\CMS\Core\Service\SilentConfigurationUpgradeService;
+use TYPO3\CMS\Core\Service\UpgradeWizardsService;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 final class UpgradeWizardRunCommandTest extends FunctionalTestCase

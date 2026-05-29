@@ -119,6 +119,9 @@ getPhpImageVersion() {
         8.3)
             echo -n "1.13"
             ;;
+        8.4)
+            echo -n "latest"
+            ;;
     esac
 }
 
@@ -306,7 +309,7 @@ while getopts ":a:b:c:d:i:p:e:xy:h" OPT; do
             ;;
         p)
             PHP_VERSION=${OPTARG}
-            if ! [[ ${PHP_VERSION} =~ ^(8.2|8.3)$ ]]; then
+            if ! [[ ${PHP_VERSION} =~ ^(8.2|8.3|8.4)$ ]]; then
                 INVALID_OPTIONS+=("${OPTARG}")
             fi
             ;;

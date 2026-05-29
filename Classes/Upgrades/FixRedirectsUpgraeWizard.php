@@ -82,7 +82,7 @@ final class FixRedirectsUpgraeWizard implements \TYPO3\CMS\Core\Upgrades\Upgrade
                     $sourcePath = '/' . ltrim($sourcePath, '/');
                 }
 
-                $queryBuilder = $this->getTableConnection();
+                $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::REDIRECT_TABLE);
                 $queryBuilder
                     ->update(self::REDIRECT_TABLE)
                     ->where(
@@ -92,7 +92,7 @@ final class FixRedirectsUpgraeWizard implements \TYPO3\CMS\Core\Upgrades\Upgrade
                         )
                     )
                     ->set('source_path', $sourcePath)
-                    ->set('target_statuscode', $row['target_statuscode'] ?? self::DEFAULT_STATUS_CODE)
+                    ->set('target_statuscode', $row['target_statuscode'] ?: self::DEFAULT_STATUS_CODE)
                     ->executeStatement();
             }
 
