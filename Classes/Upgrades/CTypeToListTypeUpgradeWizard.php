@@ -7,7 +7,6 @@ namespace Toumoro\TmMigration\Upgrades;
 use Toumoro\TmMigration\Updates\AbstractListTypeToCTypeUpdate;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 
 /**
  * Class CTypeToListTypeUpgradeWizard

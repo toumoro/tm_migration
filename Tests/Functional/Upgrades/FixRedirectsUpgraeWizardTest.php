@@ -6,7 +6,6 @@ namespace Toumoro\TmMigration\Tests\Functional\Upgrades;
 
 use PHPUnit\Framework\Attributes\Test;
 use Toumoro\TmMigration\Upgrades\FixRedirectsUpgraeWizard;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 final class FixRedirectsUpgraeWizardTest extends FunctionalTestCase

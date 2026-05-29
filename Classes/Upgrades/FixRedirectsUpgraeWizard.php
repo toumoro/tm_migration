@@ -7,12 +7,7 @@ namespace Toumoro\TmMigration\Upgrades;
 use Doctrine\DBAL\ParameterType;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
-use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 /**
  * Class TruncateLogTableUpgradeWizard
@@ -24,9 +19,7 @@ final class FixRedirectsUpgraeWizard implements \TYPO3\CMS\Core\Upgrades\Upgrade
 
     private const REDIRECT_TABLE = 'sys_redirect';
     private const DEFAULT_STATUS_CODE = 301;
-    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool)
-    {
-    }
+    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool) {}
 
     /**
      * @return string Title of this updater

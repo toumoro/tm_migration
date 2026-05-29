@@ -9,7 +9,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Toumoro\TmMigration\Upgrades\TruncateLogTableUpgradeWizard;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 final class TruncateLogTableUpgradeWizardTest extends FunctionalTestCase

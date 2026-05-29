@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Toumoro\TmMigration\Xclass\Updates;
 
 use Doctrine\DBAL\ParameterType;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Service\LoadTcaService;
 use TYPO3\CMS\v95\Install\Updates\MigratePagesLanguageOverlayUpdate as BaseMigratePagesLanguageOverlayUpdate;
 
@@ -18,9 +16,7 @@ use TYPO3\CMS\v95\Install\Updates\MigratePagesLanguageOverlayUpdate as BaseMigra
 #[\TYPO3\CMS\Core\Attribute\UpgradeWizard('pagesLanguageOverlay')]
 class MigratePagesLanguageOverlayUpdate extends BaseMigratePagesLanguageOverlayUpdate
 {
-    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool)
-    {
-    }
+    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool) {}
     /**
      * Performs the update.
      *

@@ -15,19 +15,19 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Toumoro\TmMigration\Utility\ConfigurationUtility;
 use Toumoro\TmMigration\Utility\UpgardeWizardsMappingUtility;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
-use TYPO3\CMS\Core\Configuration\Exception\SettingsWriteException;
-use TYPO3\CMS\Core\Core\Bootstrap;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Command\Exception\WizardDoesNotNeedToMakeChangesException;
 use TYPO3\CMS\Core\Command\Exception\WizardMarkedAsDoneException;
 use TYPO3\CMS\Core\Command\Exception\WizardNotFoundException;
+use TYPO3\CMS\Core\Configuration\Exception\SettingsWriteException;
+use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Service\DatabaseUpgradeWizardsService;
-use TYPO3\CMS\Install\Service\Exception\ConfigurationChangedException;
 use TYPO3\CMS\Core\Service\Exception\SilentConfigurationUpgradeReadonlyException;
-use TYPO3\CMS\Install\Service\LateBootService;
 use TYPO3\CMS\Core\Service\SilentConfigurationUpgradeService;
 use TYPO3\CMS\Core\Service\UpgradeWizardsService;
 use TYPO3\CMS\Core\Upgrades\PrerequisiteCollection;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Install\Service\Exception\ConfigurationChangedException;
+use TYPO3\CMS\Install\Service\LateBootService;
 
 /**
  * Upgrade wizard command for running wizards
